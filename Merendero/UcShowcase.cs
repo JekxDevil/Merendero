@@ -13,7 +13,7 @@ namespace Merendero
     public partial class UcShowcase : UserControl
     {
         FrmMerendero parent;
-        UcProduct selectedProduct;
+        UcProduct SelectedProduct;
 
         public UcShowcase(FrmMerendero _parent)
         {
@@ -21,9 +21,39 @@ namespace Merendero
             Size = new Size(FrmMerendero.UCWIDTH, FrmMerendero.UCHEIGHT);
             Location = new Point(FrmMerendero.X, FrmMerendero.Y);
             parent = _parent;
-            selectedProduct = null;
+            SelectedProduct = null;
         }
 
-        
+        #region METHODS
+        public void FillList()
+        {
+            FlpnlProducts.Controls.Clear();
+
+            foreach(UcProduct p in ClsAccount.ListMenu)
+                FlpnlProducts.Controls.Add(p);
+        }
+
+        private void ConfirmBookings()
+        {
+            
+        }
+
+        private void SelectedHandler()
+        {
+            SelectedProduct = null;
+        }
+        #endregion
+
+        #region EVENTS
+        public static void Product_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnConfirm_Click(object sender, EventArgs e)
+        {
+            ConfirmBookings();
+        }
+        #endregion
     }
 }

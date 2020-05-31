@@ -12,7 +12,7 @@ namespace Merendero
 {
     public partial class UcAdminDeleteProduct : UserControl
     {
-        FrmMerendero parent;
+        private FrmMerendero parent;
 
         public UcAdminDeleteProduct(FrmMerendero _parent)
         {

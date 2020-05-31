@@ -14,7 +14,7 @@ namespace Merendero
 {
     public partial class UcAdminAddProduct : UserControl
     {
-        FrmMerendero parent;
+        private FrmMerendero parent;
 
         public UcAdminAddProduct(FrmMerendero _parent)
         {

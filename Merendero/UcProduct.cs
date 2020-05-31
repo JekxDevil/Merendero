@@ -44,6 +44,10 @@ namespace Merendero
             PbxImage.Image = this.Image;
             RtbxDescription.Text = this.Description;
             LblCost.Text = this.Cost.ToString("c2");
+
+            //event handler for client, here cause simplify code
+            //used only in showcase view
+            Click += UcShowcase.Product_Click;
         }
 
         public UcProduct(string _name, string _image, string _description, float _cost, EnCategory _category)

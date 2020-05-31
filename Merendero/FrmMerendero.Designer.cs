@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMerendero));
             this.PnlMenu = new System.Windows.Forms.Panel();
+            this.Btn3 = new System.Windows.Forms.Button();
             this.PnlPanel = new System.Windows.Forms.Panel();
             this.Btn2 = new System.Windows.Forms.Button();
             this.Btn1 = new System.Windows.Forms.Button();
@@ -42,17 +43,21 @@
             this.BtnInstagram = new System.Windows.Forms.Button();
             this.BtnFacebook = new System.Windows.Forms.Button();
             this.BtnExit = new System.Windows.Forms.Button();
-            this.Btn3 = new System.Windows.Forms.Button();
-            this.Btn4 = new System.Windows.Forms.Button();
+            this.PbxAccount = new System.Windows.Forms.PictureBox();
+            this.LblAccount = new System.Windows.Forms.Label();
+            this.LblAccountTitle = new System.Windows.Forms.Label();
             this.PnlMenu.SuspendLayout();
             this.PnlIcon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PbxCoco)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PbxAccount)).BeginInit();
             this.SuspendLayout();
             // 
             // PnlMenu
             // 
             this.PnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
-            this.PnlMenu.Controls.Add(this.Btn4);
+            this.PnlMenu.Controls.Add(this.LblAccountTitle);
+            this.PnlMenu.Controls.Add(this.LblAccount);
+            this.PnlMenu.Controls.Add(this.PbxAccount);
             this.PnlMenu.Controls.Add(this.Btn3);
             this.PnlMenu.Controls.Add(this.PnlPanel);
             this.PnlMenu.Controls.Add(this.Btn2);
@@ -63,6 +68,19 @@
             this.PnlMenu.Name = "PnlMenu";
             this.PnlMenu.Size = new System.Drawing.Size(159, 708);
             this.PnlMenu.TabIndex = 0;
+            // 
+            // Btn3
+            // 
+            this.Btn3.FlatAppearance.BorderSize = 0;
+            this.Btn3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Btn3.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Btn3.ForeColor = System.Drawing.Color.White;
+            this.Btn3.Location = new System.Drawing.Point(14, 286);
+            this.Btn3.Name = "Btn3";
+            this.Btn3.Size = new System.Drawing.Size(145, 60);
+            this.Btn3.TabIndex = 4;
+            this.Btn3.Text = "Btn3";
+            this.Btn3.UseVisualStyleBackColor = true;
             // 
             // PnlPanel
             // 
@@ -214,31 +232,37 @@
             this.BtnExit.UseVisualStyleBackColor = true;
             this.BtnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
-            // Btn3
+            // PbxAccount
             // 
-            this.Btn3.FlatAppearance.BorderSize = 0;
-            this.Btn3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Btn3.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Btn3.ForeColor = System.Drawing.Color.White;
-            this.Btn3.Location = new System.Drawing.Point(14, 286);
-            this.Btn3.Name = "Btn3";
-            this.Btn3.Size = new System.Drawing.Size(145, 60);
-            this.Btn3.TabIndex = 4;
-            this.Btn3.Text = "Btn3";
-            this.Btn3.UseVisualStyleBackColor = true;
+            this.PbxAccount.Image = global::Merendero.Properties.Resources.account;
+            this.PbxAccount.Location = new System.Drawing.Point(11, 640);
+            this.PbxAccount.Name = "PbxAccount";
+            this.PbxAccount.Size = new System.Drawing.Size(30, 30);
+            this.PbxAccount.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PbxAccount.TabIndex = 5;
+            this.PbxAccount.TabStop = false;
             // 
-            // Btn4
+            // LblAccount
             // 
-            this.Btn4.FlatAppearance.BorderSize = 0;
-            this.Btn4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Btn4.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Btn4.ForeColor = System.Drawing.Color.White;
-            this.Btn4.Location = new System.Drawing.Point(14, 352);
-            this.Btn4.Name = "Btn4";
-            this.Btn4.Size = new System.Drawing.Size(145, 60);
-            this.Btn4.TabIndex = 5;
-            this.Btn4.Text = "Btn4";
-            this.Btn4.UseVisualStyleBackColor = true;
+            this.LblAccount.AutoSize = true;
+            this.LblAccount.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblAccount.ForeColor = System.Drawing.Color.White;
+            this.LblAccount.Location = new System.Drawing.Point(8, 673);
+            this.LblAccount.Name = "LblAccount";
+            this.LblAccount.Size = new System.Drawing.Size(64, 17);
+            this.LblAccount.TabIndex = 6;
+            this.LblAccount.Text = "(nessuno)";
+            // 
+            // LblAccountTitle
+            // 
+            this.LblAccountTitle.AutoSize = true;
+            this.LblAccountTitle.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblAccountTitle.ForeColor = System.Drawing.Color.White;
+            this.LblAccountTitle.Location = new System.Drawing.Point(47, 653);
+            this.LblAccountTitle.Name = "LblAccountTitle";
+            this.LblAccountTitle.Size = new System.Drawing.Size(100, 17);
+            this.LblAccountTitle.TabIndex = 7;
+            this.LblAccountTitle.Text = "Loggato come:";
             // 
             // FrmMerendero
             // 
@@ -261,9 +285,11 @@
             this.Name = "FrmMerendero";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.PnlMenu.ResumeLayout(false);
+            this.PnlMenu.PerformLayout();
             this.PnlIcon.ResumeLayout(false);
             this.PnlIcon.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PbxCoco)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PbxAccount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -283,8 +309,10 @@
         public System.Windows.Forms.Button Btn2;
         public System.Windows.Forms.Button Btn1;
         public System.Windows.Forms.Panel PnlPanel;
-        public System.Windows.Forms.Button Btn4;
         public System.Windows.Forms.Button Btn3;
+        private System.Windows.Forms.PictureBox PbxAccount;
+        private System.Windows.Forms.Label LblAccountTitle;
+        public System.Windows.Forms.Label LblAccount;
     }
 }
 

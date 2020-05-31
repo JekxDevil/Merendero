@@ -30,7 +30,7 @@ namespace Merendero
         }
 
         #region METHODS
-        private void UnsubscribeButtonEvents()
+        private void ClearSession()
         {
             if(parent.Admin != null)
             {
@@ -41,15 +41,20 @@ namespace Merendero
             else if(parent.Bar != null)
             {
                 parent.Btn1.Click -= OpenBarAddProduct;
+                parent.Btn2.Click -= OpenBarBookings;
             }
             else if(parent.Client != null)
             {
                 parent.Btn1.Click -= OpenShowcase;
             }
 
+            parent.Btn1.Visible = parent.Btn2.Visible = parent.Btn3.Visible = false;
+            parent.Btn1.Text = parent.Btn2.Text = parent.Btn3.Text = string.Empty;
+
             parent.Admin = null;
             parent.Bar = null;
             parent.Client = null;
+            parent.LblAccount.Text = string.Empty;
         }
 
         private void LogIn()
@@ -59,40 +64,14 @@ namespace Merendero
 
             string user = TbxUsername.Text;
             string pass = TbxPassword.Text;
-            ClsAccount.EnType? type = null;
-            
-            try
-            {
-                Program.conn.Open();
-                Program.cmd.CommandText = "SELECT type FROM account WHERE name = @user AND password = @pass;";
-                Program.cmd.Parameters.Add("@user", SqlDbType.VarChar).Value = user;
-                Program.cmd.Parameters.Add("@pass", SqlDbType.VarChar).Value = pass;
-                SqlDataReader reader = Program.cmd.ExecuteReader();
-                Program.cmd.Parameters.Clear();
-
-                if (reader.Read())
-                {
-                    UnsubscribeButtonEvents();
-                    type = (ClsAccount.EnType)reader["type"];
-                }
-
-                reader.Close();
-            }
-            catch (SqlException esql)
-            {
-                MessageBox.Show("Lettura Database fallita: " + esql.Message);
-            }
-            finally
-            {
-                Program.conn.Close();
-            }
+            ClsAccount.EnType? type = ClsAccount.Login(user, pass);
+            ClearSession();
 
             switch (type)
             {
                 case ClsAccount.EnType.ADMIN:
                     //open app management
                     parent.Admin = new ClsAdmin(user, pass);
-                    ClsAccount.GetProducts();
                     parent.ucAdminAddProduct.FillList();
                     parent.ucAdminAddProduct.BringToFront();
 
@@ -111,38 +90,33 @@ namespace Merendero
                     parent.Btn3.Visible = true;
                     parent.Btn3.Click += OpenAdminAccounts;
 
-                    //set button 4
-                    parent.Btn4.Visible = false;
-
                     break;
 
                 case ClsAccount.EnType.BAR:
                     //open bar management
                     parent.Bar = new ClsBar(user, pass);
-                    ClsAccount.GetProducts();
                     parent.ucBarAddProduct.FillList();
                     parent.ucBarAddProduct.BringToFront();
 
                     //set button 1
-                    parent.Btn1.Text = "Aggiungi Prodotto";
+                    parent.Btn1.Text = "Aggiungi Prodotti";
                     parent.Btn1.Visible = true;
                     parent.Btn1.Click += OpenBarAddProduct;
 
                     //set button 2
-                    parent.Btn2.Visible = false;
+                    parent.Btn2.Text = "Prenotazioni";
+                    parent.Btn2.Visible = true;
+                    parent.Btn2.Click += OpenBarBookings;
 
                     //set button 3
                     parent.Btn3.Visible = false;
-
-                    //set button 4
-                    parent.Btn4.Visible = false;
 
                     break;
 
                 case ClsAccount.EnType.CLIENT:
                     //open showcase
                     parent.Client = new ClsClient(user, pass);
-                    ClsAccount.GetProducts();
+                    parent.ucShowcase.FillList();
                     parent.ucShowcase.BringToFront();
 
                     //set button 1
@@ -156,18 +130,17 @@ namespace Merendero
                     //set button 3
                     parent.Btn3.Visible = false;
 
-                    //set button 4
-                    parent.Btn4.Visible = false;
-
                     break;
 
                 default:
                     //no user was found
-                    break;
+                    MessageBox.Show("Utente o Password errati.");
+                    return;
             }
 
             parent.PnlPanel.Location = new Point(parent.PnlPanel.Location.X, parent.Btn1.Location.Y);
-            TbxUsername.Text = TbxPassword.Text = null;
+            TbxUsername.Text = TbxPassword.Text = String.Empty;
+            parent.LblAccount.Text = user;
         }
 
         private void PasswordVisibility()
@@ -193,7 +166,7 @@ namespace Merendero
             parent.ucAdminAddProduct.BringToFront();
             parent.PnlPanel.Location = new Point(parent.PnlPanel.Location.X, parent.Btn1.Location.Y);
             ClsAccount.GetProducts();
-            parent.ucAdminAccounts.FillList();
+            parent.ucAdminAddProduct.FillList();
         }
 
         private void OpenAdminDeleteProduct(object sender, EventArgs e)
@@ -218,6 +191,14 @@ namespace Merendero
             parent.PnlPanel.Location = new Point(parent.PnlPanel.Location.X, parent.Btn1.Location.Y);
             ClsAccount.GetProducts();
             parent.ucBarAddProduct.FillList();
+        }
+
+        private void OpenBarBookings(object sender, EventArgs e)
+        {
+            parent.ucBarBookings.BringToFront();
+            parent.PnlPanel.Location = new Point(parent.PnlPanel.Location.X, parent.Btn2.Location.Y);
+            ClsAccount.GetProducts();
+            parent.ucBarBookings.FillClientsList();
         }
 
         private void OpenShowcase(object sender, EventArgs e)

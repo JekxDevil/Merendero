@@ -12,7 +12,7 @@ namespace Merendero
 {
     public partial class UcAdminAccounts : UserControl
     {
-        FrmMerendero parent;
+        private FrmMerendero parent;
 
         public UcAdminAccounts(FrmMerendero _parent)
         {

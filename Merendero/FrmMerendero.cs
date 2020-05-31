@@ -31,6 +31,7 @@ namespace Merendero
         public UcAdminDeleteProduct ucAdminDeleteProduct;
         public UcAdminAccounts ucAdminAccounts;
         public UcBarAddProducts ucBarAddProduct;
+        public UcBarBookings ucBarBookings;
         public UcShowcase ucShowcase;
         #endregion
 
@@ -42,16 +43,19 @@ namespace Merendero
             ucAdminDeleteProduct = new UcAdminDeleteProduct(this);
             ucAdminAccounts = new UcAdminAccounts(this);
             ucBarAddProduct = new UcBarAddProducts(this);
+            ucBarBookings = new UcBarBookings(this);
             ucShowcase = new UcShowcase(this);
             this.Controls.Add(ucLogin);
             this.Controls.Add(ucAdminAddProduct);
             this.Controls.Add(ucAdminDeleteProduct);
             this.Controls.Add(ucAdminAccounts);
             this.Controls.Add(ucBarAddProduct);
+            this.Controls.Add(ucBarBookings);
             this.Controls.Add(ucShowcase);
             BtnLogin.Height = PnlPanel.Height = BTNHEIGHT;
             BtnLogin.Width = BTNWIDTH;
-            Btn1.Visible = Btn2.Visible = Btn3.Visible = Btn4.Visible = false;
+            Btn1.Visible = Btn2.Visible = Btn3.Visible = false;
+            LblAccount.Text = string.Empty;
             ucLogin.BringToFront();
         }
 

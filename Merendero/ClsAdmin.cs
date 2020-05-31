@@ -12,12 +12,16 @@ namespace Merendero
 {
     public class ClsAdmin : ClsAccount
     {
-        public List<ClsAccount> ListAccounts { get; private set; }
+        public List<ClsAccount> ListAccounts { get; private set; } = new List<ClsAccount>();
 
-        public ClsAdmin(string _name, string _password) : base(_name, _password, ClsAccount.EnType.ADMIN) { }
+        public ClsAdmin(string _name, string _password) : base(_name, _password, ClsAccount.EnType.ADMIN)
+        {
+            ClsAccount.GetProducts();
+            this.GetAccounts();
+        }
 
         #region METHODS
-        public bool AddAccount(ClsAccount _account)
+        public void AddAccount(ClsAccount _account)
         {
             try
             {
@@ -28,8 +32,6 @@ namespace Merendero
                 Program.cmd.Parameters.Add("@type", SqlDbType.VarChar).Value = (int)_account.Type;
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
-
-                return true;
             }
             catch (SqlException sqlerror)
             {
@@ -38,8 +40,6 @@ namespace Merendero
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                     );
-
-                return false;
             }
             finally
             {
@@ -48,7 +48,7 @@ namespace Merendero
             }
         }
 
-        public bool EditAccount(ClsAccount _account)
+        public void EditAccount(ClsAccount _account)
         {
             try
             {
@@ -59,8 +59,6 @@ namespace Merendero
                 Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = _account.Name;
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
-
-                return true;
             }
             catch (SqlException sqlerror)
             {
@@ -69,8 +67,6 @@ namespace Merendero
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                     );
-
-                return false;
             }
             finally
             {
@@ -79,7 +75,7 @@ namespace Merendero
             }
         }
 
-        public bool DeleteAccount(ClsAccount _account)
+        public void DeleteAccount(ClsAccount _account)
         {
             try
             {
@@ -93,8 +89,6 @@ namespace Merendero
                 Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = _account.Name;
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
-
-                return true;
             }
             catch (SqlException sqlerror)
             {
@@ -103,8 +97,6 @@ namespace Merendero
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                     );
-
-                return false;
             }
             finally
             {
@@ -154,7 +146,7 @@ namespace Merendero
         /// </summary>
         /// <param name="_product">prototype product obj</param>
         /// <returns>true if function works</returns>
-        public bool AddProduct(UcProduct _product)
+        public void AddProduct(UcProduct _product)
         {
             try
             {
@@ -186,8 +178,6 @@ namespace Merendero
                 Program.cmd.Parameters.Add("@category", SqlDbType.Int).Value = (int)_product.Category;
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
-
-                return true;
             }
             catch (SqlException sqlerror)
             {
@@ -196,8 +186,6 @@ namespace Merendero
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                     );
-
-                return false;
             }
             finally
             {
@@ -206,7 +194,7 @@ namespace Merendero
             }
         }
 
-        public bool EditProduct(UcProduct _product)
+        public void EditProduct(UcProduct _product)
         {
             try
             {
@@ -221,8 +209,6 @@ namespace Merendero
                 Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = _product.Name;
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
-
-                return true;
             }
             catch (SqlException sqlerror)
             {
@@ -231,8 +217,6 @@ namespace Merendero
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                     );
-
-                return false;
             }
             finally
             {
@@ -241,7 +225,7 @@ namespace Merendero
             }
         }
 
-        public bool EditProduct(UcProduct _product, string _oldimage)
+        public void EditProduct(UcProduct _product, string _oldimage)
         {
             try
             {
@@ -279,8 +263,6 @@ namespace Merendero
                 Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = _oldimage;
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
-
-                return true;
             }
             catch (SqlException sqlerror)
             {
@@ -289,8 +271,6 @@ namespace Merendero
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                     );
-
-                return false;
             }
             finally
             {
@@ -304,7 +284,7 @@ namespace Merendero
         /// </summary>
         /// <param name="_product">product obj as example</param>
         /// <returns>true if function works</returns>
-        public bool DeleteProduct(UcProduct _product)
+        public void DeleteProduct(UcProduct _product)
         {
             try
             {
@@ -324,8 +304,6 @@ namespace Merendero
                 Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = _product.Tag;
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
-
-                return true;
             }
             catch(SqlException sqlerror)
             {
@@ -334,8 +312,6 @@ namespace Merendero
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                     );
-
-                return false;
             }
             finally
             {

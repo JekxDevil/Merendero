@@ -117,4 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LblDescription.Text" xml:space="preserve">
+    <value>Benvenuto sulla Vetrina!
+Per prenotare clicca sul prodotto, digita la quantita' e premi "OK" per aggiungerlo al carrello.
+Aggiunti tutti i prodotti richiesti, clicca su "CONFERMA" per inviare la prenotazione al bar.</value>
+  </data>
 </root>

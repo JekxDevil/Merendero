@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Data;
 
 namespace Merendero
 {
@@ -28,6 +29,36 @@ namespace Merendero
         }
 
         #region METHODS
+        public static EnType? Login(string _user, string _pass)
+        {
+            EnType? type = null;
+
+            try
+            {
+                Program.conn.Open();
+                Program.cmd.CommandText = "SELECT type FROM account WHERE name = @user AND password = @pass;";
+                Program.cmd.Parameters.Add("@user", SqlDbType.VarChar).Value = _user;
+                Program.cmd.Parameters.Add("@pass", SqlDbType.VarChar).Value = _pass;
+                SqlDataReader reader = Program.cmd.ExecuteReader();
+                Program.cmd.Parameters.Clear();
+
+                if (reader.Read())
+                    type = (ClsAccount.EnType)reader["type"];
+
+                reader.Close();
+            }
+            catch (SqlException esql)
+            {
+                MessageBox.Show("Lettura Database fallita: " + esql.Message);
+            }
+            finally
+            {
+                Program.conn.Close();
+            }
+
+            return type;
+        }
+
         /// <summary>
         /// Procedure - updates listproducts, listmenu and dictamounts in once
         /// </summary>

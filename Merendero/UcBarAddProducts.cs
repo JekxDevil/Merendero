@@ -19,7 +19,6 @@ namespace Merendero
             InitializeComponent();
             Size = new Size(FrmMerendero.UCWIDTH, FrmMerendero.UCHEIGHT);
             Location = new Point(FrmMerendero.X, FrmMerendero.Y);
-            FillList();
             parent = _parent;
         }
 

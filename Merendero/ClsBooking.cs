@@ -14,6 +14,15 @@ namespace Merendero
         public int Product { get; private set; }
         public DateTime Timestamp { get; private set; }
 
+        public ClsBooking(int _id, string _bar, string _client, int _product, DateTime _timestamp)
+        {
+            Id = _id;
+            Bar = _bar;
+            Client = _client;
+            Product = _product;
+            Timestamp = _timestamp;
+        }
+
         public ClsBooking(int _id, string _bar, string _client, int _product)
         {
             Id = _id;
