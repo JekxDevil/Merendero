@@ -13,8 +13,8 @@ namespace Merendero
     public partial class UcShowcase : UserControl
     {
         private FrmMerendero parent;
-        private UcProduct SelectedProduct;
-        private List<ClsBooking> ListBookings;
+        private static UcAmountProduct ucAmount;
+        private static UcProduct SelectedProduct;
 
         public UcShowcase(FrmMerendero _parent)
         {
@@ -22,46 +22,37 @@ namespace Merendero
             Size = new Size(FrmMerendero.UCWIDTH, FrmMerendero.UCHEIGHT);
             Location = new Point(FrmMerendero.X, FrmMerendero.Y);
             parent = _parent;
+            ucAmount = new UcAmountProduct() { Visible = false };
+            ucAmount.Click += Amount_Click;
+            FlpnlProducts.Controls.Add(ucAmount);       //bug
             SelectedProduct = null;
         }
 
         #region METHODS
+        private static void SelectedHandler(UcProduct _product)
+        {
+            if (_product.Clicked)
+            {
+                ucAmount.Visible = false;
+                _product.BringToFront();
+            }
+            else
+            {
+                SelectedProduct = _product;
+                ucAmount.Location = _product.Location;
+                ucAmount.Visible = true;
+                ucAmount.BringToFront();
+            }
+
+            _product.Clicked = _product.Clicked ? false : true;
+        }
+
         public void FillList()
         {
             FlpnlProducts.Controls.Clear();
 
-            foreach (UcProduct p in ClsAccount.ListMenu)
-            {
-                p.Click += OneProductShowed_Click;
-                p.LblName.Click += OneProductShowed_Click;
-                p.PbxImage.Click += OneProductShowed_Click;
-                p.RtbxDescription.Click += OneProductShowed_Click;
-                p.LblCost.Click += OneProductShowed_Click;
-                p.BtnOk.Click += Amount_Click;
+            foreach(UcProduct p in ClsAccount.ListMenu)
                 FlpnlProducts.Controls.Add(p);
-            }
-        }
-
-        private void AmountHandler(UcProduct _product)
-        {
-            int amount = (int)_product.NudAmount.Value;
-
-            for (int i = 0; i < amount; i++)
-                ListBookings.Add(new ClsBooking(
-                    parent.Client.Name,
-                    _product.Id
-                    ));
-        }
-
-        private void OneShowedHandler(UcProduct _product)
-        {
-            if (SelectedProduct != null && _product.Id != SelectedProduct.Id && SelectedProduct.Clicked)
-            {
-                SelectedProduct.SwitchSide(SelectedProduct, EventArgs.Empty);
-                SelectedProduct = null;
-            }
-
-            SelectedProduct = _product;
         }
 
         private void ConfirmBookings()
@@ -71,24 +62,22 @@ namespace Merendero
             foreach (ClsBooking b in parent.Client.ListBookings)
                 parent.Client.Book(b);
         }
+
+        private void AmountHandler()
+        {
+
+        }
         #endregion
 
         #region EVENTS
-        public void OneProductShowed_Click(object sender, EventArgs e)
+        public static void Product_Click(object sender, EventArgs e)
         {
-            if (sender is UcProduct)
-                OneShowedHandler((UcProduct)sender);
-            else if (sender is Label)
-                OneShowedHandler((UcProduct)((Label)sender).Parent);
-            else if(sender is PictureBox)
-                OneShowedHandler((UcProduct)((PictureBox)sender).Parent);
-            else if(sender is RichTextBox)
-                OneShowedHandler((UcProduct)((RichTextBox)sender).Parent);
+            SelectedHandler((UcProduct)sender);
         }
 
-        public void Amount_Click(object sender, EventArgs e)
+        private void Amount_Click(object sender, EventArgs e)
         {
-            AmountHandler((UcProduct)((Button)sender).Parent);
+            AmountHandler();
         }
 
         private void BtnConfirm_Click(object sender, EventArgs e)

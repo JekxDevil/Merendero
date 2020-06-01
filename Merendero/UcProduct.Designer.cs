@@ -50,7 +50,7 @@
             this.LblCost.AutoSize = true;
             this.LblCost.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblCost.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
-            this.LblCost.Location = new System.Drawing.Point(115, 251);
+            this.LblCost.Location = new System.Drawing.Point(112, 251);
             this.LblCost.Name = "LblCost";
             this.LblCost.Size = new System.Drawing.Size(85, 23);
             this.LblCost.TabIndex = 6;
@@ -99,9 +99,9 @@
 
         #endregion
 
-        public System.Windows.Forms.Label LblName;
-        public System.Windows.Forms.Label LblCost;
-        public System.Windows.Forms.PictureBox PbxImage;
-        public System.Windows.Forms.RichTextBox RtbxDescription;
+        private System.Windows.Forms.Label LblName;
+        private System.Windows.Forms.Label LblCost;
+        private System.Windows.Forms.PictureBox PbxImage;
+        private System.Windows.Forms.RichTextBox RtbxDescription;
     }
 }

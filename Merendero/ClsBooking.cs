@@ -23,8 +23,10 @@ namespace Merendero
             Timestamp = _timestamp;
         }
 
-        public ClsBooking(string _client, int _product)
+        public ClsBooking(int _id, string _bar, string _client, int _product)
         {
+            Id = _id;
+            Bar = _bar;
             Client = _client;
             Product = _product;
             Timestamp = DateTime.Now;
