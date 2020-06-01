@@ -49,6 +49,8 @@ namespace Merendero
 
         private void SelectedProduct()
         {
+            if (LvwProducts.FocusedItem == null) return;
+
             LblSelectedProduct.Text = ClsAccount.ListMenu[LvwProducts.FocusedItem.Index].Name;
         }
         #endregion

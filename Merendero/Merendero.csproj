@@ -95,12 +95,6 @@
     <Compile Include="UcAdminDeleteProduct.Designer.cs">
       <DependentUpon>UcAdminDeleteProduct.cs</DependentUpon>
     </Compile>
-    <Compile Include="UcAmountProduct.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UcAmountProduct.Designer.cs">
-      <DependentUpon>UcAmountProduct.cs</DependentUpon>
-    </Compile>
     <Compile Include="UcBarAddProducts.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -152,9 +146,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UcAdminDeleteProduct.resx">
       <DependentUpon>UcAdminDeleteProduct.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UcAmountProduct.resx">
-      <DependentUpon>UcAmountProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UcBarAddProducts.resx">
       <DependentUpon>UcBarAddProducts.cs</DependentUpon>

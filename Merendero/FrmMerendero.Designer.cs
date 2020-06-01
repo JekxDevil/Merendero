@@ -30,6 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMerendero));
             this.PnlMenu = new System.Windows.Forms.Panel();
+            this.LblAccountTitle = new System.Windows.Forms.Label();
+            this.LblAccount = new System.Windows.Forms.Label();
+            this.PbxAccount = new System.Windows.Forms.PictureBox();
             this.Btn3 = new System.Windows.Forms.Button();
             this.PnlPanel = new System.Windows.Forms.Panel();
             this.Btn2 = new System.Windows.Forms.Button();
@@ -43,13 +46,10 @@
             this.BtnInstagram = new System.Windows.Forms.Button();
             this.BtnFacebook = new System.Windows.Forms.Button();
             this.BtnExit = new System.Windows.Forms.Button();
-            this.PbxAccount = new System.Windows.Forms.PictureBox();
-            this.LblAccount = new System.Windows.Forms.Label();
-            this.LblAccountTitle = new System.Windows.Forms.Label();
             this.PnlMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PbxAccount)).BeginInit();
             this.PnlIcon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PbxCoco)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PbxAccount)).BeginInit();
             this.SuspendLayout();
             // 
             // PnlMenu
@@ -68,6 +68,38 @@
             this.PnlMenu.Name = "PnlMenu";
             this.PnlMenu.Size = new System.Drawing.Size(159, 708);
             this.PnlMenu.TabIndex = 0;
+            // 
+            // LblAccountTitle
+            // 
+            this.LblAccountTitle.AutoSize = true;
+            this.LblAccountTitle.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblAccountTitle.ForeColor = System.Drawing.Color.White;
+            this.LblAccountTitle.Location = new System.Drawing.Point(47, 653);
+            this.LblAccountTitle.Name = "LblAccountTitle";
+            this.LblAccountTitle.Size = new System.Drawing.Size(100, 17);
+            this.LblAccountTitle.TabIndex = 7;
+            this.LblAccountTitle.Text = "Loggato come:";
+            // 
+            // LblAccount
+            // 
+            this.LblAccount.AutoSize = true;
+            this.LblAccount.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblAccount.ForeColor = System.Drawing.Color.White;
+            this.LblAccount.Location = new System.Drawing.Point(8, 673);
+            this.LblAccount.Name = "LblAccount";
+            this.LblAccount.Size = new System.Drawing.Size(64, 17);
+            this.LblAccount.TabIndex = 6;
+            this.LblAccount.Text = "(nessuno)";
+            // 
+            // PbxAccount
+            // 
+            this.PbxAccount.Image = global::Merendero.Properties.Resources.account;
+            this.PbxAccount.Location = new System.Drawing.Point(11, 640);
+            this.PbxAccount.Name = "PbxAccount";
+            this.PbxAccount.Size = new System.Drawing.Size(30, 30);
+            this.PbxAccount.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PbxAccount.TabIndex = 5;
+            this.PbxAccount.TabStop = false;
             // 
             // Btn3
             // 
@@ -232,38 +264,6 @@
             this.BtnExit.UseVisualStyleBackColor = true;
             this.BtnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
-            // PbxAccount
-            // 
-            this.PbxAccount.Image = global::Merendero.Properties.Resources.account;
-            this.PbxAccount.Location = new System.Drawing.Point(11, 640);
-            this.PbxAccount.Name = "PbxAccount";
-            this.PbxAccount.Size = new System.Drawing.Size(30, 30);
-            this.PbxAccount.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PbxAccount.TabIndex = 5;
-            this.PbxAccount.TabStop = false;
-            // 
-            // LblAccount
-            // 
-            this.LblAccount.AutoSize = true;
-            this.LblAccount.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblAccount.ForeColor = System.Drawing.Color.White;
-            this.LblAccount.Location = new System.Drawing.Point(8, 673);
-            this.LblAccount.Name = "LblAccount";
-            this.LblAccount.Size = new System.Drawing.Size(64, 17);
-            this.LblAccount.TabIndex = 6;
-            this.LblAccount.Text = "(nessuno)";
-            // 
-            // LblAccountTitle
-            // 
-            this.LblAccountTitle.AutoSize = true;
-            this.LblAccountTitle.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblAccountTitle.ForeColor = System.Drawing.Color.White;
-            this.LblAccountTitle.Location = new System.Drawing.Point(47, 653);
-            this.LblAccountTitle.Name = "LblAccountTitle";
-            this.LblAccountTitle.Size = new System.Drawing.Size(100, 17);
-            this.LblAccountTitle.TabIndex = 7;
-            this.LblAccountTitle.Text = "Loggato come:";
-            // 
             // FrmMerendero
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -286,10 +286,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.PnlMenu.ResumeLayout(false);
             this.PnlMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PbxAccount)).EndInit();
             this.PnlIcon.ResumeLayout(false);
             this.PnlIcon.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PbxCoco)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PbxAccount)).EndInit();
             this.ResumeLayout(false);
 
         }
