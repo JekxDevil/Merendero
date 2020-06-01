@@ -68,7 +68,7 @@
             // 
             // RtbxDescription
             // 
-            this.RtbxDescription.BackColor = System.Drawing.SystemColors.Control;
+            this.RtbxDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.RtbxDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RtbxDescription.Location = new System.Drawing.Point(7, 215);
             this.RtbxDescription.Name = "RtbxDescription";
@@ -82,7 +82,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.Controls.Add(this.RtbxDescription);
             this.Controls.Add(this.PbxImage);
             this.Controls.Add(this.LblCost);

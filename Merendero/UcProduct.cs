@@ -26,6 +26,9 @@ namespace Merendero
         public float Cost { get; private set; }
         public EnCategory Category { get; private set; }
 
+        //design management
+        public bool Clicked { get; set; }
+
         public UcProduct(int _id, string _name, string _image, string _description, float _cost, EnCategory _category)
         {
             InitializeComponent();
@@ -47,6 +50,7 @@ namespace Merendero
 
             //event handler for client, here cause simplify code
             //used only in showcase view
+            Clicked = false;
             Click += UcShowcase.Product_Click;
         }
 
@@ -106,7 +110,5 @@ namespace Merendero
 
             return image;
         }
-
-        //handler click valuta
     }
 }
