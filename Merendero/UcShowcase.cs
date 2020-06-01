@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Merendero
 {
@@ -67,10 +68,15 @@ namespace Merendero
 
         private void ConfirmBookings()
         {
-            //apri form scontrino, visualizza e conferma, dopo dialogresult ok effettua prenotazione
-
-            foreach (ClsBooking b in parent.Client.ListBookings)
-                parent.Client.Book(b);
+            if (ListBookings.Count == 0) return;
+            FrmReceipt frmReceipt = new FrmReceipt(ListBookings);
+            DialogResult dr = frmReceipt.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                //apri form scontrino, visualizza e conferma, dopo dialogresult ok effettua prenotazione
+                foreach (ClsBooking b in parent.Client.ListBookings)
+                    parent.Client.Book(b);
+            }
         }
         #endregion
 
