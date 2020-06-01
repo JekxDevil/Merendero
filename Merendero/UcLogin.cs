@@ -181,6 +181,7 @@ namespace Merendero
         {
             parent.ucAdminAccounts.BringToFront();
             parent.PnlPanel.Location = new Point(parent.PnlPanel.Location.X, parent.Btn3.Location.Y);
+            parent.PnlPanel.BringToFront();
             parent.Admin.GetAccounts();
             parent.ucAdminAccounts.FillList();
         }
