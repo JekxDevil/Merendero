@@ -181,7 +181,9 @@ namespace Merendero
             }
             catch
             {
-                MessageBox.Show("Impossibile salvare prodotto o immagine sul Database.\nProblemi frequenti: rinominare immagine.",
+                MessageBox.Show("Impossibile salvare prodotto o immagine sul Database.\nProblemi frequenti: " +
+                    "\nselezionare immagine" +
+                    "\nrinominare immagine",
                     "Errore salvataggio su Database",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -210,9 +212,11 @@ namespace Merendero
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
             }
-            catch (SqlException sqlerror)
+            catch
             {
-                MessageBox.Show("Impossibile modificare prodotto sul Database -> " + sqlerror.Message,
+                MessageBox.Show("Impossibile salvare prodotto o immagine sul Database.\nProblemi frequenti: " +
+                    "\nselezionare immagine" +
+                    "\nrinominare immagine",
                     "Errore salvataggio su Database",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
