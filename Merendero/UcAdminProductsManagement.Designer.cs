@@ -126,7 +126,7 @@
             this.BtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BtnAdd.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAdd.ForeColor = System.Drawing.Color.White;
-            this.BtnAdd.Location = new System.Drawing.Point(45, 510);
+            this.BtnAdd.Location = new System.Drawing.Point(44, 510);
             this.BtnAdd.Margin = new System.Windows.Forms.Padding(0);
             this.BtnAdd.Name = "BtnAdd";
             this.BtnAdd.Size = new System.Drawing.Size(181, 30);
@@ -143,7 +143,7 @@
             this.BtnFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BtnFile.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnFile.ForeColor = System.Drawing.Color.Black;
-            this.BtnFile.Location = new System.Drawing.Point(45, 450);
+            this.BtnFile.Location = new System.Drawing.Point(44, 450);
             this.BtnFile.Margin = new System.Windows.Forms.Padding(0);
             this.BtnFile.Name = "BtnFile";
             this.BtnFile.Size = new System.Drawing.Size(181, 27);
@@ -243,11 +243,11 @@
             // LblPath
             // 
             this.LblPath.AutoSize = true;
-            this.LblPath.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblPath.Location = new System.Drawing.Point(232, 461);
+            this.LblPath.Font = new System.Drawing.Font("Century Gothic", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblPath.Location = new System.Drawing.Point(229, 459);
             this.LblPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LblPath.Name = "LblPath";
-            this.LblPath.Size = new System.Drawing.Size(35, 16);
+            this.LblPath.Size = new System.Drawing.Size(28, 13);
             this.LblPath.TabIndex = 14;
             this.LblPath.Text = "path";
             // 
@@ -323,7 +323,7 @@
             this.BtnClean.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BtnClean.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnClean.ForeColor = System.Drawing.Color.White;
-            this.BtnClean.Location = new System.Drawing.Point(310, 451);
+            this.BtnClean.Location = new System.Drawing.Point(310, 395);
             this.BtnClean.Margin = new System.Windows.Forms.Padding(0);
             this.BtnClean.Name = "BtnClean";
             this.BtnClean.Size = new System.Drawing.Size(181, 30);
