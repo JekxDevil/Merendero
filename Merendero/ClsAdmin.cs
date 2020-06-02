@@ -179,9 +179,9 @@ namespace Merendero
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
             }
-            catch (SqlException sqlerror)
+            catch
             {
-                MessageBox.Show("Impossibile salvare prodotto o immagine sul Database -> " + sqlerror.Message,
+                MessageBox.Show("Impossibile salvare prodotto o immagine sul Database.\nProblemi frequenti: rinominare immagine.",
                     "Errore salvataggio su Database",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
