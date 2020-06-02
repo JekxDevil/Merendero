@@ -44,7 +44,7 @@ namespace Merendero
             if (LvwProducts.FocusedItem == null) return;
             
             int index = LvwProducts.FocusedItem.Index;
-            parent.Admin.DeleteProduct(ClsAccount.ListProducts[index]);
+            parent.Admin.DeleteProduct(ClsAccount.ListMenu[index]);
             FillList();
         }
         #endregion

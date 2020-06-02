@@ -55,7 +55,9 @@ namespace Merendero
                 TbxPassword.Text,
                 (ClsAccount.EnType)CbxType.SelectedIndex
                 ));
+
             FillList();
+            ClearFields();
         }
 
         /// <summary>
@@ -72,7 +74,9 @@ namespace Merendero
                 TbxPassword.Text,
                 (ClsAccount.EnType)CbxType.SelectedIndex
                 ));
+
             FillList();
+            ClearFields();
         }
 
         /// <summary>
@@ -95,6 +99,13 @@ namespace Merendero
             TbxName.Text = account.Name;
             TbxPassword.Text = account.Password;
             CbxType.SelectedIndex = (int)account.Type;
+        }
+
+        private void ClearFields()
+        {
+            TbxName.Text = string.Empty;
+            TbxPassword.Text = string.Empty;
+            CbxType.SelectedIndex = 0;
         }
 
         private void FillTypes()

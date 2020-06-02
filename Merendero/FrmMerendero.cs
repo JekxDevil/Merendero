@@ -27,24 +27,24 @@ namespace Merendero
         public ClsBar Bar;
         public ClsClient Client;
         public UcLogin ucLogin;
-        public UcAdminAddProduct ucAdminAddProduct;
+        public UcAdminProductsManagement ucAdminAddProduct;
         public UcAdminDeleteProduct ucAdminDeleteProduct;
         public UcAdminAccounts ucAdminAccounts;
         public UcBarAddProducts ucBarAddProduct;
         public UcBarBookings ucBarBookings;
-        public UcShowcase ucShowcase;
+        public UcClientShowcase ucShowcase;
         #endregion
 
         public FrmMerendero()
         {
             InitializeComponent();
             ucLogin = new UcLogin(this);
-            ucAdminAddProduct = new UcAdminAddProduct(this);
+            ucAdminAddProduct = new UcAdminProductsManagement(this);
             ucAdminDeleteProduct = new UcAdminDeleteProduct(this);
             ucAdminAccounts = new UcAdminAccounts(this);
             ucBarAddProduct = new UcBarAddProducts(this);
             ucBarBookings = new UcBarBookings(this);
-            ucShowcase = new UcShowcase(this);
+            ucShowcase = new UcClientShowcase(this);
             this.Controls.Add(ucLogin);
             this.Controls.Add(ucAdminAddProduct);
             this.Controls.Add(ucAdminDeleteProduct);

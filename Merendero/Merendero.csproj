@@ -89,11 +89,11 @@
     <Compile Include="UcAdminAccounts.Designer.cs">
       <DependentUpon>UcAdminAccounts.cs</DependentUpon>
     </Compile>
-    <Compile Include="UcAdminAddProduct.cs">
+    <Compile Include="UcAdminProductsManagement.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UcAdminAddProduct.Designer.cs">
-      <DependentUpon>UcAdminAddProduct.cs</DependentUpon>
+    <Compile Include="UcAdminProductsManagement.Designer.cs">
+      <DependentUpon>UcAdminProductsManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="UcAdminDeleteProduct.cs">
       <SubType>UserControl</SubType>
@@ -113,6 +113,12 @@
     <Compile Include="UcBarBookings.Designer.cs">
       <DependentUpon>UcBarBookings.cs</DependentUpon>
     </Compile>
+    <Compile Include="UcClientBookings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcClientBookings.Designer.cs">
+      <DependentUpon>UcClientBookings.cs</DependentUpon>
+    </Compile>
     <Compile Include="UcLogin.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -125,11 +131,11 @@
     <Compile Include="UcProduct.Designer.cs">
       <DependentUpon>UcProduct.cs</DependentUpon>
     </Compile>
-    <Compile Include="UcShowcase.cs">
+    <Compile Include="UcClientShowcase.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UcShowcase.Designer.cs">
-      <DependentUpon>UcShowcase.cs</DependentUpon>
+    <Compile Include="UcClientShowcase.Designer.cs">
+      <DependentUpon>UcClientShowcase.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FrmMerendero.resx">
       <DependentUpon>FrmMerendero.cs</DependentUpon>
@@ -150,8 +156,8 @@
     <EmbeddedResource Include="UcAdminAccounts.resx">
       <DependentUpon>UcAdminAccounts.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UcAdminAddProduct.resx">
-      <DependentUpon>UcAdminAddProduct.cs</DependentUpon>
+    <EmbeddedResource Include="UcAdminProductsManagement.resx">
+      <DependentUpon>UcAdminProductsManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UcAdminDeleteProduct.resx">
       <DependentUpon>UcAdminDeleteProduct.cs</DependentUpon>
@@ -162,14 +168,17 @@
     <EmbeddedResource Include="UcBarBookings.resx">
       <DependentUpon>UcBarBookings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UcClientBookings.resx">
+      <DependentUpon>UcClientBookings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UcLogin.resx">
       <DependentUpon>UcLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UcProduct.resx">
       <DependentUpon>UcProduct.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UcShowcase.resx">
-      <DependentUpon>UcShowcase.cs</DependentUpon>
+    <EmbeddedResource Include="UcClientShowcase.resx">
+      <DependentUpon>UcClientShowcase.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
