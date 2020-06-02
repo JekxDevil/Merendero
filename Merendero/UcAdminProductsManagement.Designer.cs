@@ -49,6 +49,7 @@
             this.columnDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnCost = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.BtnClean = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PbxPreviewProduct)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudCost)).BeginInit();
             this.GbxProduct.SuspendLayout();
@@ -197,6 +198,7 @@
             // 
             // GbxProduct
             // 
+            this.GbxProduct.Controls.Add(this.BtnClean);
             this.GbxProduct.Controls.Add(this.BtnEdit);
             this.GbxProduct.Controls.Add(this.LblPath);
             this.GbxProduct.Controls.Add(this.LblPreview);
@@ -229,7 +231,7 @@
             this.BtnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BtnEdit.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEdit.ForeColor = System.Drawing.Color.White;
-            this.BtnEdit.Location = new System.Drawing.Point(277, 510);
+            this.BtnEdit.Location = new System.Drawing.Point(310, 510);
             this.BtnEdit.Margin = new System.Windows.Forms.Padding(0);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(181, 30);
@@ -313,7 +315,24 @@
             this.columnCategory.Text = "Categoria";
             this.columnCategory.Width = 113;
             // 
-            // UcAdminAddProduct
+            // BtnClean
+            // 
+            this.BtnClean.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
+            this.BtnClean.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
+            this.BtnClean.FlatAppearance.BorderSize = 0;
+            this.BtnClean.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnClean.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnClean.ForeColor = System.Drawing.Color.White;
+            this.BtnClean.Location = new System.Drawing.Point(310, 451);
+            this.BtnClean.Margin = new System.Windows.Forms.Padding(0);
+            this.BtnClean.Name = "BtnClean";
+            this.BtnClean.Size = new System.Drawing.Size(181, 30);
+            this.BtnClean.TabIndex = 16;
+            this.BtnClean.Text = "PULISCI CAMPI";
+            this.BtnClean.UseVisualStyleBackColor = false;
+            this.BtnClean.Click += new System.EventHandler(this.BtnClean_Click);
+            // 
+            // UcAdminProductsManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -323,7 +342,7 @@
             this.Controls.Add(this.GbxProduct);
             this.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "UcAdminAddProduct";
+            this.Name = "UcAdminProductsManagement";
             this.Size = new System.Drawing.Size(1058, 574);
             ((System.ComponentModel.ISupportInitialize)(this.PbxPreviewProduct)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudCost)).EndInit();
@@ -357,5 +376,6 @@
         private System.Windows.Forms.ColumnHeader columnDescription;
         private System.Windows.Forms.ColumnHeader columnCost;
         private System.Windows.Forms.ColumnHeader columnCategory;
+        private System.Windows.Forms.Button BtnClean;
     }
 }

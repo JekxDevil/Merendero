@@ -150,15 +150,10 @@ namespace Merendero
 
             //good feeback
             LblPath.Text = "Prodotto modificato con successo.";
-            TbxName.Text = null;
-            PbxPreviewProduct.Image = null;
-            RtbxDescription.Text = null;
-            NudCost.Value = NudCost.Minimum;
-            CbxCategory.SelectedIndex = 0;
-            BtnFile.Tag = false;
+            ClearFields();
         }
 
-        private void CompileField()
+        private void CompileFields()
         {
             if (LvwProducts.FocusedItem == null) return;
 
@@ -169,6 +164,19 @@ namespace Merendero
             CbxCategory.SelectedIndex = (int)product.Category;
             LblPath.Text = (string)product.Tag;
             PbxPreviewProduct.Image = product.Image;
+            BtnAdd.Enabled = false;
+        }
+
+        private void ClearFields()
+        {
+            LvwProducts.SelectedIndices.Clear();
+            TbxName.Text = string.Empty;
+            RtbxDescription.Text = string.Empty;
+            NudCost.Value = NudCost.Minimum;
+            CbxCategory.SelectedIndex = 0;
+            PbxPreviewProduct.Image = null;
+            BtnFile.Tag = false;
+            BtnAdd.Enabled = true;
         }
         #endregion
 
@@ -190,7 +198,12 @@ namespace Merendero
 
         private void LvwProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CompileField();
+            CompileFields();
+        }
+
+        private void BtnClean_Click(object sender, EventArgs e)
+        {
+            ClearFields();
         }
         #endregion
     }
