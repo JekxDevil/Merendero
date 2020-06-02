@@ -61,10 +61,7 @@ namespace Merendero
             int amount = (int)_product.NudAmount.Value;
             _product.NudAmount.Maximum = _product.NudAmount.Maximum - amount;
             SelectedProduct.SwitchSide(SelectedProduct, EventArgs.Empty);
-
-
-
-            List<UcProduct> list = ClsAccount.ListProducts.FindAll(x => x.Name == _product.Name).GetRange(0, amount);   //aggiungere esclusi booked
+            List<UcProduct> list = ClsAccount.ListProducts.FindAll(x => x.Name == _product.Name && !x.Booked).GetRange(0, amount);
 
             foreach (UcProduct p in list)
                 ListNewBookings.Add(new ClsBooking(

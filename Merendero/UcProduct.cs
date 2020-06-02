@@ -28,6 +28,7 @@ namespace Merendero
         public string Description { get; private set; }
         public float Cost { get; private set; }
         public EnCategory Category { get; private set; }
+        public bool Booked { get; private set; }
 
         //design management
         public bool Clicked { get; set; }
@@ -37,7 +38,7 @@ namespace Merendero
         #endregion
 
         #region CONSTRUCTORS
-        public UcProduct(int _id, string _name, string _image, string _description, float _cost, EnCategory _category)
+        public UcProduct(int _id, string _name, string _image, string _description, float _cost, EnCategory _category, bool _booked)
         {
             InitializeComponent();
             Id = _id;
@@ -47,6 +48,7 @@ namespace Merendero
             Description = _description;
             Cost = _cost;
             Category = _category;
+            Booked = _booked;
 
             //design
             Width = WIDTH;

@@ -37,6 +37,12 @@ namespace Merendero
                 Program.cmd.Parameters.Add("@timestamp", SqlDbType.VarChar).Value = _booking.Timestamp;
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
+
+                Program.cmd.CommandText = "UPDATE product SET booked = 'true' WHERE id = @id;";
+                Program.cmd.Parameters.Add("@id", SqlDbType.Int).Value = _booking.Product;
+                Program.cmd.ExecuteNonQuery();
+                Program.cmd.Parameters.Clear();
+
                 ListBookings.Add(_booking);
             }
             catch (SqlException sqlerror)
@@ -78,9 +84,11 @@ namespace Merendero
                         (DateTime)reader["timestamp"]
                         ));
 
-                    if (reader["bar_account"] != DBNull.Value)
+                    UcProduct p = ClsAccount.ListProducts.Find(x => x.Id == (int)reader["product"]);
+
+                    if (reader["bar_account"] != DBNull.Value || p.Booked)
                     {
-                        string product_name = (ClsAccount.ListProducts.Find(x => x.Id == (int)reader["product"])).Name;
+                        string product_name = p.Name;
 
                         if (!DictUnbookableAmounts.ContainsKey(product_name))
                             DictUnbookableAmounts[product_name] = 0;

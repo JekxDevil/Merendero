@@ -70,7 +70,7 @@ namespace Merendero
             try
             {
                 Program.conn.Open();
-                Program.cmd.CommandText = "SELECT id, name, image, description, cost, category FROM product";
+                Program.cmd.CommandText = "SELECT id, name, image, description, cost, category, booked FROM product";
                 SqlDataReader reader = Program.cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -81,7 +81,8 @@ namespace Merendero
                         (string)reader["image"],
                         (string)reader["description"],
                         Convert.ToSingle(reader["cost"]),
-                        (UcProduct.EnCategory)(int)reader["category"]
+                        (UcProduct.EnCategory)(int)reader["category"],
+                        (bool)reader["booked"]
                         ));
 
                     //get DictAmount
