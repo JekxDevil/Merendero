@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.LvwBookings = new System.Windows.Forms.ListView();
-            this.GbxReceipt = new System.Windows.Forms.GroupBox();
             this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnCost = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.GbxReceipt = new System.Windows.Forms.GroupBox();
             this.LblTotalCost = new System.Windows.Forms.Label();
             this.BtnConfirm = new System.Windows.Forms.Button();
             this.BtnCancel = new System.Windows.Forms.Button();
@@ -55,16 +55,6 @@
             this.LvwBookings.UseCompatibleStateImageBehavior = false;
             this.LvwBookings.View = System.Windows.Forms.View.Details;
             // 
-            // GbxReceipt
-            // 
-            this.GbxReceipt.Controls.Add(this.LvwBookings);
-            this.GbxReceipt.Location = new System.Drawing.Point(12, 12);
-            this.GbxReceipt.Name = "GbxReceipt";
-            this.GbxReceipt.Size = new System.Drawing.Size(423, 566);
-            this.GbxReceipt.TabIndex = 1;
-            this.GbxReceipt.TabStop = false;
-            this.GbxReceipt.Text = "Scontrino";
-            // 
             // columnName
             // 
             this.columnName.Text = "Nome";
@@ -80,6 +70,16 @@
             this.columnCost.Text = "Prezzo";
             this.columnCost.Width = 116;
             // 
+            // GbxReceipt
+            // 
+            this.GbxReceipt.Controls.Add(this.LvwBookings);
+            this.GbxReceipt.Location = new System.Drawing.Point(12, 12);
+            this.GbxReceipt.Name = "GbxReceipt";
+            this.GbxReceipt.Size = new System.Drawing.Size(423, 566);
+            this.GbxReceipt.TabIndex = 1;
+            this.GbxReceipt.TabStop = false;
+            this.GbxReceipt.Text = "Scontrino";
+            // 
             // LblTotalCost
             // 
             this.LblTotalCost.AutoSize = true;
@@ -92,7 +92,7 @@
             // 
             // BtnConfirm
             // 
-            this.BtnConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.BtnConfirm.BackColor = System.Drawing.Color.Green;
             this.BtnConfirm.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
             this.BtnConfirm.FlatAppearance.BorderSize = 0;
             this.BtnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Popup;

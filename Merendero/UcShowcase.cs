@@ -15,13 +15,18 @@ namespace Merendero
     {
         private FrmMerendero parent;
         private UcProduct SelectedProduct;
-        private List<ClsBooking> ListBookings;
+        private List<ClsBooking> ListNewBookings; 
+        private List<ClsBooking> ListTypeBookings;
+        private Dictionary<string, int> DictProductsBooked;
 
         public UcShowcase(FrmMerendero _parent)
         {
             InitializeComponent();
             Size = new Size(FrmMerendero.UCWIDTH, FrmMerendero.UCHEIGHT);
             Location = new Point(FrmMerendero.X, FrmMerendero.Y);
+            ListNewBookings = new List<ClsBooking>();
+            ListTypeBookings = new List<ClsBooking>();
+            DictProductsBooked = new Dictionary<string, int>();
             parent = _parent;
             SelectedProduct = null;
         }
@@ -33,6 +38,14 @@ namespace Merendero
 
             foreach (UcProduct p in ClsAccount.ListMenu)
             {
+                p.NudAmount.Maximum = ClsAccount.DictAmounts[p.Name];
+
+                if (parent.Client.DictUnbookableAmounts.ContainsKey(p.Name))
+                    p.NudAmount.Maximum -= parent.Client.DictUnbookableAmounts[p.Name];
+
+                if (p.NudAmount.Maximum <= 0)
+                    p.LblCost.Text = "FINITO";
+
                 p.Click += OneProductShowed_Click;
                 p.LblName.Click += OneProductShowed_Click;
                 p.PbxImage.Click += OneProductShowed_Click;
@@ -46,17 +59,31 @@ namespace Merendero
         private void AmountHandler(UcProduct _product)
         {
             int amount = (int)_product.NudAmount.Value;
+            _product.NudAmount.Maximum = _product.NudAmount.Maximum - amount;
+            SelectedProduct.SwitchSide(SelectedProduct, EventArgs.Empty);
 
-            for (int i = 0; i < amount; i++)
-                ListBookings.Add(new ClsBooking(
+
+
+            List<UcProduct> list = ClsAccount.ListProducts.FindAll(x => x.Name == _product.Name).GetRange(0, amount);   //aggiungere esclusi booked
+
+            foreach (UcProduct p in list)
+                ListNewBookings.Add(new ClsBooking(
                     parent.Client.Name,
-                    _product.Id
+                    p.Id
                     ));
+
+
+            ListTypeBookings.Add(new ClsBooking(
+                parent.Client.Name,
+                _product.Id
+                ));
+
+            string name = (ClsAccount.ListProducts.Find(x => x.Id == _product.Id).Name);
+            DictProductsBooked[name] = amount;
         }
 
         private void OneShowedHandler(UcProduct _product)
         {
-            //condizione sbagliata
             if (SelectedProduct != null && _product.Id != SelectedProduct.Id && SelectedProduct.Clicked)
             {
                 SelectedProduct.SwitchSide(SelectedProduct, EventArgs.Empty);
@@ -68,15 +95,14 @@ namespace Merendero
 
         private void ConfirmBookings()
         {
-            if (ListBookings.Count == 0) return;
-            FrmReceipt frmReceipt = new FrmReceipt(ListBookings);
+            if (ListTypeBookings.Count == 0) return;
+
+            FrmReceipt frmReceipt = new FrmReceipt(ListTypeBookings, DictProductsBooked);
             DialogResult dr = frmReceipt.ShowDialog();
+
             if (dr == DialogResult.OK)
-            {
-                //apri form scontrino, visualizza e conferma, dopo dialogresult ok effettua prenotazione
-                foreach (ClsBooking b in parent.Client.ListBookings)
+                foreach (ClsBooking b in ListNewBookings)
                     parent.Client.Book(b);
-            }
         }
         #endregion
 

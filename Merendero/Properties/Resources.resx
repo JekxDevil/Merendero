@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DatabaseConnectionString" xml:space="preserve">
-    <value>Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Andrea\Source\Repos\JekxDevil\Merendero\Merendero\Database.mdf;Integrated Security=True</value>
+    <value>Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\jekx1\Documents\scuola\Informatica\quarto\C#\Merendero\Merendero\Database.mdf;Integrated Security=True</value>
     <comment>change to you database connect. string if needed</comment>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

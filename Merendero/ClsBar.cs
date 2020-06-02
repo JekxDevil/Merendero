@@ -13,10 +13,13 @@ namespace Merendero
 {
     public class ClsBar : ClsAccount
     {
+        #region FIELDS
         public List<ClsBooking> ListBookings { get; private set; }
         public Dictionary<string, List<ClsBooking>> DictBookingsPerClient { get; private set; }
         public Dictionary<string, Dictionary<string, List<ClsBooking>>> DictOrderedBookings { get; private set; }
+        #endregion
 
+        #region CONSTRUCTORS
         public ClsBar(string _name, string _password) : base(_name, _password, ClsAccount.EnType.BAR)
         {
             ListBookings = new List<ClsBooking>();
@@ -25,6 +28,7 @@ namespace Merendero
             ClsAccount.GetProducts();
             this.GetBookings();
         }
+        #endregion
 
         #region METHODS
         public void Sell(List<ClsBooking> _listbookings)
@@ -56,6 +60,7 @@ namespace Merendero
             finally
             {
                 Program.conn.Close();
+                this.GetBookings();
             }
         }
         
@@ -86,6 +91,7 @@ namespace Merendero
             finally
             {
                 Program.conn.Close();
+                this.GetBookings();
             }
         }
 
@@ -93,6 +99,7 @@ namespace Merendero
         {
             ListBookings.Clear();
             DictBookingsPerClient.Clear();
+            DictOrderedBookings.Clear();
 
             try
             {
@@ -103,12 +110,14 @@ namespace Merendero
 
                 while (reader.Read())
                 {
+                    string bar = reader["bar_account"] == DBNull.Value ? string.Empty : (string)reader["bar_account"];
+
                     ListBookings.Add(new ClsBooking(
                         (int)reader["id"],
-                        (string)reader["bar_account"],
+                        bar,
                         (string)reader["client_account"],
-                        (int)reader["produt"],
-                        DateTime.Parse((string)reader["timestamp"])
+                        (int)reader["product"],
+                        (DateTime)reader["timestamp"]
                         ));
 
                     //temp variables
@@ -117,22 +126,21 @@ namespace Merendero
                     string product_name = ClsAccount.ListProducts.Find(x => x.Id == product_id).Name;
 
                     //get list of bookings ordered by client's name and bookings ordered by products name ordered by client's name
-                    if (DictBookingsPerClient.ContainsKey(client))
-                    {
-                        //if client has order registered, then add his bookings
-                        DictBookingsPerClient[client].Add(ListBookings.Last());
-
-                        //if client bookings have already this product name registered, then add booking
-                        if (DictOrderedBookings[client].ContainsKey(product_name))
-                            DictOrderedBookings[client][product_name].Add(ListBookings.Last());
-                        else
-                            DictOrderedBookings[client][product_name] = new List<ClsBooking>();
-                    }
-                    else
+                    //if client isn't registered, insert
+                    if (!DictBookingsPerClient.ContainsKey(client))
                     {
                         DictBookingsPerClient[client] = new List<ClsBooking>();
                         DictOrderedBookings[client] = new Dictionary<string, List<ClsBooking>>();
-                    } 
+                    }
+
+                    //add his bookings
+                    DictBookingsPerClient[client].Add(ListBookings.Last());
+
+                    //if client bookings haven't this product list name registered, create
+                    if (!DictOrderedBookings[client].ContainsKey(product_name))
+                        DictOrderedBookings[client][product_name] = new List<ClsBooking>();
+
+                    DictOrderedBookings[client][product_name].Add(ListBookings.Last());
                 }
 
                 reader.Close();

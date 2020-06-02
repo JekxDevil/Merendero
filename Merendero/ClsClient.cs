@@ -12,12 +12,17 @@ namespace Merendero
     public class ClsClient : ClsAccount
     {
         public List<ClsBooking> ListBookings { get; private set; }
+        public Dictionary<string, int> DictUnbookableAmounts { get; private set; } = new Dictionary<string, int>();
 
+        #region CONSTRUCTOR
         public ClsClient(string _name, string _password) : base(_name, _password, ClsAccount.EnType.CLIENT)
         {
             ListBookings = new List<ClsBooking>();
+            DictUnbookableAmounts = new Dictionary<string, int>();
             ClsAccount.GetProducts();
+            this.GetBookings();
         }
+        #endregion
 
         #region METHODS
         public void Book(ClsBooking _booking)
@@ -32,6 +37,7 @@ namespace Merendero
                 Program.cmd.Parameters.Add("@timestamp", SqlDbType.VarChar).Value = _booking.Timestamp;
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
+                ListBookings.Add(_booking);
             }
             catch (SqlException sqlerror)
             {
@@ -50,23 +56,37 @@ namespace Merendero
         public void GetBookings()
         {
             ListBookings.Clear();
+            DictUnbookableAmounts.Clear();
 
             try
             {
                 Program.conn.Open();
-                Program.cmd.CommandText = "SELECT id, bar_account, clien_account, product, timestamp FROM bookings WHERE client_account = @client;";
+                Program.cmd.CommandText = "SELECT id, bar_account, client_account, product, timestamp FROM booking WHERE client_account = @client;";
                 Program.cmd.Parameters.Add("@client", SqlDbType.VarChar).Value = this.Name;
                 SqlDataReader reader = Program.cmd.ExecuteReader();
+                Program.cmd.Parameters.Clear();
 
                 while (reader.Read())
                 {
+                    string bar = reader["bar_account"] == DBNull.Value ? string.Empty : (string)reader["bar_account"];
+
                     ListBookings.Add(new ClsBooking(
                         (int)reader["id"],
-                        (string)reader["bar_account"],
+                        bar,
                         (string)reader["client_account"],
-                        (int)reader["produt"],
-                        DateTime.Parse((string)reader["timestamp"])
+                        (int)reader["product"],
+                        (DateTime)reader["timestamp"]
                         ));
+
+                    if (reader["bar_account"] != DBNull.Value)
+                    {
+                        string product_name = (ClsAccount.ListProducts.Find(x => x.Id == (int)reader["product"])).Name;
+
+                        if (!DictUnbookableAmounts.ContainsKey(product_name))
+                            DictUnbookableAmounts[product_name] = 0;
+
+                        DictUnbookableAmounts[product_name]++;
+                    }
                 }
 
                 reader.Close();

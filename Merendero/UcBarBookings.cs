@@ -17,7 +17,6 @@ namespace Merendero
 
         public UcBarBookings(FrmMerendero _parent)
         {
-            //control bar value, if correct then refactor all code
             InitializeComponent();
             Size = new Size(FrmMerendero.UCWIDTH, FrmMerendero.UCHEIGHT);
             Location = new Point(FrmMerendero.X, FrmMerendero.Y);
@@ -61,7 +60,10 @@ namespace Merendero
 
             foreach(ListViewItem lvi in LvwSelectedBooking.Items)
                 if (lvi.Checked)
-                    parent.Bar.Sell(parent.Bar.DictOrderedBookings[Client][lvi.SubItems[1].ToString()]);
+                    parent.Bar.Sell(parent.Bar.DictOrderedBookings[Client][lvi.SubItems[1].Text]);
+
+            FillClientsList();
+            LvwSelectedBooking.Items.Clear();
         }
 
         private void CancelBooking()

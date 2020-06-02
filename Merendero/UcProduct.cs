@@ -14,8 +14,10 @@ namespace Merendero
 {
     public partial class UcProduct : UserControl
     {
+        #region CONSTS
         public const int WIDTH = 200;
         public const int HEIGHT = 275;
+        #endregion
 
         #region FIELDS
         public enum EnCategory { BEVANDA, BIBITA, CARAMELLA, DOLCE, PRIMO, SALATO, SECONDO }
