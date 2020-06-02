@@ -45,7 +45,8 @@ namespace Merendero
             }
             else if(parent.Client != null)
             {
-                parent.Btn1.Click -= OpenShowcase;
+                parent.Btn1.Click -= OpenClientShowcase;
+                parent.Btn2.Click -= OpenClientBookings;
             }
 
             parent.Btn1.Visible = parent.Btn2.Visible = parent.Btn3.Visible = false;
@@ -116,16 +117,18 @@ namespace Merendero
                 case ClsAccount.EnType.CLIENT:
                     //open showcase
                     parent.Client = new ClsClient(user, pass);
-                    parent.ucShowcase.FillList();
-                    parent.ucShowcase.BringToFront();
+                    parent.ucClientShowcase.FillList();
+                    parent.ucClientShowcase.BringToFront();
 
                     //set button 1
                     parent.Btn1.Text = "Vetrina";
                     parent.Btn1.Visible = true;
-                    parent.Btn1.Click += OpenShowcase;
+                    parent.Btn1.Click += OpenClientShowcase;
 
                     //set button 2
-                    parent.Btn2.Visible = false;
+                    parent.Btn2.Text = "Prenotazioni";
+                    parent.Btn2.Visible = true;
+                    parent.Btn2.Click += OpenClientBookings;
 
                     //set button 3
                     parent.Btn3.Visible = false;
@@ -202,10 +205,19 @@ namespace Merendero
             parent.ucBarBookings.FillClientsList();
         }
 
-        private void OpenShowcase(object sender, EventArgs e)
+        private void OpenClientShowcase(object sender, EventArgs e)
         {
-            parent.ucShowcase.BringToFront();
+            parent.ucClientShowcase.BringToFront();
+            parent.Client.GetBookings();
             parent.PnlPanel.Location = new Point(parent.PnlPanel.Location.X, parent.Btn1.Location.Y);
+        }
+
+        private void OpenClientBookings(object sender, EventArgs e)
+        {
+            parent.ucClientBookings.BringToFront();
+            parent.PnlPanel.Location = new Point(parent.PnlPanel.Location.X, parent.Btn2.Location.Y);
+            parent.Client.GetBookings();
+            parent.ucClientBookings.FillList();
         }
 
         private void BtnLogin_Click(object sender, EventArgs e)

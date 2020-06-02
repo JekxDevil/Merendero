@@ -33,7 +33,7 @@ namespace Merendero
                 lvi = new ListViewItem(p.Name);
                 lvi.SubItems.Add(p.Cost.ToString("c2"));
                 lvi.SubItems.Add(p.Category.ToString());
-                lvi.SubItems.Add(ClsAccount.DictAmounts[p.Name].ToString());
+                lvi.SubItems.Add((ClsAccount.DictAmounts[p.Name] - parent.Bar.DictUnbookableAmounts[p.Name]).ToString());
                 LvwProducts.Items.Add(lvi);
             }
         }

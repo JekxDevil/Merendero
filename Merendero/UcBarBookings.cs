@@ -58,12 +58,14 @@ namespace Merendero
         {
             if (LvwBookingClients.FocusedItem == null) return;
 
-            foreach(ListViewItem lvi in LvwSelectedBooking.Items)
+            foreach (ListViewItem lvi in LvwSelectedBooking.Items)
                 if (lvi.Checked)
+                {
+                    LvwSelectedBooking.Items.Remove(lvi);
                     parent.Bar.Sell(parent.Bar.DictOrderedBookings[Client][lvi.SubItems[1].Text]);
+                }
 
             FillClientsList();
-            LvwSelectedBooking.Items.Clear();
         }
 
         private void CancelBooking()

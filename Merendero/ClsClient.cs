@@ -11,13 +11,13 @@ namespace Merendero
 {
     public class ClsClient : ClsAccount
     {
-        public List<ClsBooking> ListBookings { get; private set; }
+        public List<ClsBooking> ListOwnBookings { get; private set; }
         public Dictionary<string, int> DictUnbookableAmounts { get; private set; } = new Dictionary<string, int>();
 
         #region CONSTRUCTOR
         public ClsClient(string _name, string _password) : base(_name, _password, ClsAccount.EnType.CLIENT)
         {
-            ListBookings = new List<ClsBooking>();
+            ListOwnBookings = new List<ClsBooking>();
             DictUnbookableAmounts = new Dictionary<string, int>();
             ClsAccount.GetProducts();
             this.GetBookings();
@@ -43,7 +43,7 @@ namespace Merendero
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
 
-                ListBookings.Add(_booking);
+                ListOwnBookings.Add(_booking);
             }
             catch (SqlException sqlerror)
             {
@@ -61,7 +61,7 @@ namespace Merendero
 
         public void GetBookings()
         {
-            ListBookings.Clear();
+            ListOwnBookings.Clear();
             DictUnbookableAmounts.Clear();
 
             try
@@ -78,7 +78,7 @@ namespace Merendero
 
                     if (client == this.Name)
                     {
-                        ListBookings.Add(new ClsBooking(
+                        ListOwnBookings.Add(new ClsBooking(
                             (int)reader["id"],
                             bar,
                             (string)reader["client_account"],

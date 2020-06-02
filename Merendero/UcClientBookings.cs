@@ -27,9 +27,14 @@ namespace Merendero
             LvwBookings.Items.Clear();
             ListViewItem lvi;
 
-            foreach(ClsBooking b in parent.Client.ListBookings)
+            foreach(ClsBooking b in parent.Client.ListOwnBookings)
             {
-                //per booking
+                string product_name = (ClsAccount.ListProducts.Find(x => x.Id == b.Product)).Name;
+                lvi = new ListViewItem(b.Id.ToString());
+                lvi.SubItems.Add(product_name);
+                lvi.SubItems.Add(b.Timestamp.ToString());
+                lvi.SubItems.Add(b.Bar == string.Empty ? "NON CONFERMATO" : "CONFERMATO");
+                LvwBookings.Items.Add(lvi);
             }
         }
     }

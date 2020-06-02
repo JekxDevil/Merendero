@@ -14,6 +14,7 @@ namespace Merendero
     public class ClsBar : ClsAccount
     {
         #region FIELDS
+        public Dictionary<string, int> DictUnbookableAmounts { get; private set; } = new Dictionary<string, int>();
         public List<ClsBooking> ListBookings { get; private set; }
         public Dictionary<string, List<ClsBooking>> DictBookingsPerClient { get; private set; }
         public Dictionary<string, Dictionary<string, List<ClsBooking>>> DictOrderedBookings { get; private set; }
@@ -27,6 +28,7 @@ namespace Merendero
             DictOrderedBookings = new Dictionary<string, Dictionary<string, List<ClsBooking>>>();
             ClsAccount.GetProducts();
             this.GetBookings();
+            this.UpdateDictUnbookableAmounts();
         }
         #endregion
 
@@ -95,6 +97,56 @@ namespace Merendero
             }
         }
 
+        public void FillPantry(UcProduct _product, int _amount)
+        {
+            try
+            {
+                Program.conn.Open();
+
+                //add products
+                for (int i = 0; i < _amount; i++)
+                {
+                    Program.cmd.CommandText = "INSERT INTO product (name, image, description, cost, category) " +
+                        "VALUES (@name, @image, @description, @cost, @category);";
+                    Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = _product.Name;
+                    Program.cmd.Parameters.Add("@image", SqlDbType.VarChar).Value = Path.GetFileNameWithoutExtension((string)_product.Tag);
+                    Program.cmd.Parameters.Add("@description", SqlDbType.VarChar).Value = _product.Description;
+                    Program.cmd.Parameters.Add("@cost", SqlDbType.Float).Value = _product.Cost;
+                    Program.cmd.Parameters.Add("@category", SqlDbType.VarChar).Value = (int)_product.Category;
+                    Program.cmd.ExecuteNonQuery();
+                    Program.cmd.Parameters.Clear();
+                }
+
+                MessageBox.Show("Prodotti aggiunti con successo.");
+            }
+            catch (SqlException sqlerror)
+            {
+                MessageBox.Show("Impossibile salvare prodotto o immagine sul Database -> " + sqlerror.Message,
+                    "Errore salvataggio su Database",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+            }
+            finally
+            {
+                Program.conn.Close();
+                ClsAccount.GetProducts();
+            }
+        }
+
+        public void UpdateDictUnbookableAmounts()
+        {
+            foreach (UcProduct p in ClsAccount.ListProducts)
+            {
+                if (!DictUnbookableAmounts.ContainsKey(p.Name))
+                    DictUnbookableAmounts[p.Name] = 0;
+
+                if (p.Booked)
+                    DictUnbookableAmounts[p.Name]++;
+            }
+
+        }
+
         private void GetBookings()
         {
             ListBookings.Clear();
@@ -157,44 +209,7 @@ namespace Merendero
             {
                 Program.conn.Close();
             }
-        }
-
-        public void FillPantry(UcProduct _product, int _amount)
-        {
-            try
-            {
-                Program.conn.Open();
-
-                //add products
-                for (int i = 0; i < _amount; i++)
-                {
-                    Program.cmd.CommandText = "INSERT INTO product (name, image, description, cost, category) " +
-                        "VALUES (@name, @image, @description, @cost, @category);";
-                    Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = _product.Name;
-                    Program.cmd.Parameters.Add("@image", SqlDbType.VarChar).Value = Path.GetFileNameWithoutExtension((string)_product.Tag);
-                    Program.cmd.Parameters.Add("@description", SqlDbType.VarChar).Value = _product.Description;
-                    Program.cmd.Parameters.Add("@cost", SqlDbType.Float).Value = _product.Cost;
-                    Program.cmd.Parameters.Add("@category", SqlDbType.VarChar).Value = (int)_product.Category;
-                    Program.cmd.ExecuteNonQuery();
-                    Program.cmd.Parameters.Clear();
-                }
-
-                MessageBox.Show("Prodotti aggiunti con successo.");
-            }
-            catch (SqlException sqlerror)
-            {
-                MessageBox.Show("Impossibile salvare prodotto o immagine sul Database -> " + sqlerror.Message,
-                    "Errore salvataggio su Database",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                    );
-            }
-            finally
-            {
-                Program.conn.Close();
-                ClsAccount.GetProducts();
-            }
-        }
+        }        
         #endregion
     }
 }

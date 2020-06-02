@@ -31,9 +31,9 @@
             this.LblDescription = new System.Windows.Forms.Label();
             this.LvwBookings = new System.Windows.Forms.ListView();
             this.columnProductName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnTimestamp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnState = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // LblDescription
@@ -51,8 +51,8 @@
             // LvwBookings
             // 
             this.LvwBookings.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnId,
             this.columnProductName,
-            this.columnAmount,
             this.columnTimestamp,
             this.columnState});
             this.LvwBookings.FullRowSelect = true;
@@ -68,22 +68,22 @@
             // columnProductName
             // 
             this.columnProductName.Text = "Nome Prodotto";
-            this.columnProductName.Width = 405;
-            // 
-            // columnAmount
-            // 
-            this.columnAmount.Text = "Quantita\'";
-            this.columnAmount.Width = 176;
+            this.columnProductName.Width = 382;
             // 
             // columnTimestamp
             // 
             this.columnTimestamp.Text = "Data";
-            this.columnTimestamp.Width = 241;
+            this.columnTimestamp.Width = 270;
             // 
             // columnState
             // 
             this.columnState.Text = "Stato";
-            this.columnState.Width = 185;
+            this.columnState.Width = 202;
+            // 
+            // columnId
+            // 
+            this.columnId.Text = "N Prenotazione";
+            this.columnId.Width = 162;
             // 
             // UcClientBookings
             // 
@@ -106,8 +106,8 @@
         private System.Windows.Forms.Label LblDescription;
         private System.Windows.Forms.ListView LvwBookings;
         private System.Windows.Forms.ColumnHeader columnProductName;
-        private System.Windows.Forms.ColumnHeader columnAmount;
         private System.Windows.Forms.ColumnHeader columnTimestamp;
         private System.Windows.Forms.ColumnHeader columnState;
+        private System.Windows.Forms.ColumnHeader columnId;
     }
 }
