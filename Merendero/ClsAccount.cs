@@ -36,6 +36,7 @@ namespace Merendero
             try
             {
                 Program.conn.Open();
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "SELECT type FROM account WHERE name = @user AND password = @pass;";
                 Program.cmd.Parameters.Add("@user", SqlDbType.VarChar).Value = _user;
                 Program.cmd.Parameters.Add("@pass", SqlDbType.VarChar).Value = _pass;
@@ -70,6 +71,7 @@ namespace Merendero
             try
             {
                 Program.conn.Open();
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "SELECT id, name, image, description, cost, category, booked FROM product";
                 SqlDataReader reader = Program.cmd.ExecuteReader();
 

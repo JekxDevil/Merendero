@@ -30,6 +30,7 @@ namespace Merendero
             try
             {
                 Program.conn.Open();
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "INSERT INTO booking (client_account, product, timestamp) " +
                     "VALUES (@client_account, @product, @timestamp);";
                 Program.cmd.Parameters.Add("@client_account", SqlDbType.VarChar).Value = _booking.Client;
@@ -67,6 +68,7 @@ namespace Merendero
             try
             {
                 Program.conn.Open();
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "SELECT id, bar_account, client_account, product, timestamp FROM booking;";
                 SqlDataReader reader = Program.cmd.ExecuteReader();
                 Program.cmd.Parameters.Clear();

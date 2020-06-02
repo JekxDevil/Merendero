@@ -39,6 +39,7 @@ namespace Merendero
             {
                 //list contains only product which are going to be sold
                 Program.conn.Open();
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "UPDATE booking SET bar_account = @bar WHERE id = @id;";
                 Program.cmd.Parameters.Add("@bar", SqlDbType.VarChar).Value = this.Name;
                 SqlParameter sqlpar_id = Program.cmd.Parameters.Add("@id", SqlDbType.VarChar);
@@ -71,6 +72,7 @@ namespace Merendero
             try
             {
                 Program.conn.Open();
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "DELETE FROM bookings WHERE id = @id;";
                 SqlParameter sqlpar_id = Program.cmd.Parameters.Add("@id", SqlDbType.VarChar);
 
@@ -102,6 +104,7 @@ namespace Merendero
             try
             {
                 Program.conn.Open();
+                Program.cmd.Parameters.Clear();
 
                 //add products
                 for (int i = 0; i < _amount; i++)
@@ -156,6 +159,7 @@ namespace Merendero
             try
             {
                 Program.conn.Open();
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "SELECT id, bar_account, client_account, product, timestamp FROM booking " +
                     "WHERE bar_account IS NULL;";
                 SqlDataReader reader = Program.cmd.ExecuteReader();

@@ -159,6 +159,7 @@ namespace Merendero
                 BinaryReader br = new BinaryReader(fs);
                 byte[] imageData = br.ReadBytes((int)fs.Length);
 
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "INSERT INTO image (name, bindata) VALUES (@name, @bindata);";
                 Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = imageName;
                 Program.cmd.Parameters.Add("@bindata", SqlDbType.Image, imageData.Length).Value = imageData;
@@ -169,6 +170,7 @@ namespace Merendero
                 fs.Close();
 
                 //product then
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "INSERT INTO product (name, image, description, cost, category) " +
                     "VALUES (@name, @image, @description, @cost, @category);";
                 Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = _product.Name;
@@ -203,6 +205,7 @@ namespace Merendero
                 Program.conn.Open();
 
                 //edit product
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "UPDATE product SET description = @description, cost = @cost, category = @category " +
                     "WHERE name = @name;";
                 Program.cmd.Parameters.Add("@description", SqlDbType.VarChar).Value = _product.Description;
@@ -242,6 +245,7 @@ namespace Merendero
                 BinaryReader br = new BinaryReader(fs);
                 byte[] imageData = br.ReadBytes((int)fs.Length);
 
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "INSERT INTO image (name, bindata) VALUES (@name, @bindata);";
                 Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = imageName;
                 Program.cmd.Parameters.Add("@bindata", SqlDbType.Image, imageData.Length).Value = imageData;
@@ -252,6 +256,7 @@ namespace Merendero
                 fs.Close();
 
                 //edit product
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "UPDATE product SET image = @image, description = @description, cost = @cost, category = @category " +
                     "WHERE name = @name;";
                 Program.cmd.Parameters.Add("@image", SqlDbType.VarChar).Value = imageName;
@@ -263,6 +268,7 @@ namespace Merendero
                 Program.cmd.Parameters.Clear();
 
                 //delete always old image, could be different with same name
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "DELETE FROM image WHERE name = @name";
                 Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = _oldimage;
                 Program.cmd.ExecuteNonQuery();
@@ -298,12 +304,14 @@ namespace Merendero
 
 
                 //delete product
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "DELETE FROM product WHERE name = @name";
                 Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = _product.Name;
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
 
                 //delete its image
+                Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "DELETE FROM image WHERE name = @name";
                 Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = _product.Tag;
                 Program.cmd.ExecuteNonQuery();
