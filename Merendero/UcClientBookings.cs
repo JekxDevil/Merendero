@@ -22,6 +22,15 @@ namespace Merendero
             parent = _parent;
         }
 
+        public void FillList()
+        {
+            LvwBookings.Items.Clear();
+            ListViewItem lvi;
 
+            foreach(ClsBooking b in parent.Client.ListBookings)
+            {
+                //per booking
+            }
+        }
     }
 }

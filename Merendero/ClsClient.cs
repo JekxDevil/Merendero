@@ -67,22 +67,25 @@ namespace Merendero
             try
             {
                 Program.conn.Open();
-                Program.cmd.CommandText = "SELECT id, bar_account, client_account, product, timestamp FROM booking WHERE client_account = @client;";
-                Program.cmd.Parameters.Add("@client", SqlDbType.VarChar).Value = this.Name;
+                Program.cmd.CommandText = "SELECT id, bar_account, client_account, product, timestamp FROM booking;";
                 SqlDataReader reader = Program.cmd.ExecuteReader();
                 Program.cmd.Parameters.Clear();
 
                 while (reader.Read())
                 {
                     string bar = reader["bar_account"] == DBNull.Value ? string.Empty : (string)reader["bar_account"];
+                    string client = (string)reader["client_account"];
 
-                    ListBookings.Add(new ClsBooking(
-                        (int)reader["id"],
-                        bar,
-                        (string)reader["client_account"],
-                        (int)reader["product"],
-                        (DateTime)reader["timestamp"]
-                        ));
+                    if (client == this.Name)
+                    {
+                        ListBookings.Add(new ClsBooking(
+                            (int)reader["id"],
+                            bar,
+                            (string)reader["client_account"],
+                            (int)reader["product"],
+                            (DateTime)reader["timestamp"]
+                            ));
+                    }
 
                     UcProduct p = ClsAccount.ListProducts.Find(x => x.Id == (int)reader["product"]);
 
@@ -95,6 +98,7 @@ namespace Merendero
 
                         DictUnbookableAmounts[product_name]++;
                     }
+
                 }
 
                 reader.Close();
