@@ -34,10 +34,10 @@
             this.columnImage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnCost = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.BtnDelete = new System.Windows.Forms.Button();
             this.GbxDeleteProducts = new System.Windows.Forms.GroupBox();
             this.LblDescription = new System.Windows.Forms.Label();
-            this.columnAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.GbxDeleteProducts.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,6 +80,11 @@
             this.columnCategory.Text = "Categoria";
             this.columnCategory.Width = 154;
             // 
+            // columnAmount
+            // 
+            this.columnAmount.Text = "Quantita\'";
+            this.columnAmount.Width = 94;
+            // 
             // BtnDelete
             // 
             this.BtnDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
@@ -118,11 +123,6 @@
             this.LblDescription.Size = new System.Drawing.Size(398, 260);
             this.LblDescription.TabIndex = 5;
             this.LblDescription.Text = resources.GetString("LblDescription.Text");
-            // 
-            // columnAmount
-            // 
-            this.columnAmount.Text = "Quantita\'";
-            this.columnAmount.Width = 94;
             // 
             // UcAdminDeleteProduct
             // 
