@@ -73,12 +73,20 @@ namespace Merendero
             {
                 Program.conn.Open();
                 Program.cmd.Parameters.Clear();
-                Program.cmd.CommandText = "DELETE FROM bookings WHERE id = @id;";
+                Program.cmd.CommandText = "DELETE FROM booking WHERE id = @id;";
                 SqlParameter sqlpar_id = Program.cmd.Parameters.Add("@id", SqlDbType.VarChar);
 
                 foreach (ClsBooking b in _listbookings)
                 {
                     sqlpar_id.Value = b.Id;
+                    Program.cmd.ExecuteNonQuery();
+                }
+                
+                Program.cmd.CommandText = "DELETE FROM product WHERE id = @id;";
+                
+                foreach(ClsBooking b in _listbookings)
+                {
+                    sqlpar_id.Value = b.Product;
                     Program.cmd.ExecuteNonQuery();
                 }
 

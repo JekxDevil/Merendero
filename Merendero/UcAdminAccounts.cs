@@ -87,8 +87,17 @@ namespace Merendero
             if (LvwAccounts.FocusedItem == null) return;
             if (parent.Admin.Name == parent.Admin.ListAccounts[LvwAccounts.FocusedItem.Index].Name) return; //cannot remove himself
 
-            parent.Admin.DeleteAccount(parent.Admin.ListAccounts[LvwAccounts.FocusedItem.Index]);
-            FillList();
+            DialogResult dr = MessageBox.Show("Eliminare l'account e tutte le associazioni?",
+                "Eliminazione account",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Warning
+                );
+
+            if (dr == DialogResult.OK)
+            {
+                parent.Admin.DeleteAccount(parent.Admin.ListAccounts[LvwAccounts.FocusedItem.Index]);
+                FillList();
+            }
         }
 
         private void CompileField()

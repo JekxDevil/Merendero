@@ -301,10 +301,7 @@ namespace Merendero
             try
             {
                 Program.conn.Open();
-
-                //delete related bookings? may cause problems if lefted
-
-
+                
                 //delete product
                 Program.cmd.Parameters.Clear();
                 Program.cmd.CommandText = "DELETE FROM product WHERE name = @name";

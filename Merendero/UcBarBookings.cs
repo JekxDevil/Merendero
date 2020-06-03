@@ -33,6 +33,13 @@ namespace Merendero
                 LvwBookingClients.Items.Add(new ListViewItem(s));
         }
 
+        private void UpdateSelectedBookings()
+        {
+            foreach (ListViewItem lvi in LvwSelectedBooking.Items)
+                if (lvi.Checked)
+                    LvwSelectedBooking.Items.Remove(lvi);
+        }
+
         private void SelectedBooking()
         {
             if (LvwBookingClients.FocusedItem == null) return;
@@ -66,6 +73,7 @@ namespace Merendero
                 }
 
             FillClientsList();
+            UpdateSelectedBookings();
         }
 
         private void CancelBooking()
@@ -74,7 +82,10 @@ namespace Merendero
 
             foreach (ListViewItem lvi in LvwSelectedBooking.Items)
                 if (lvi.Checked)
-                    parent.Bar.CancelBookings(parent.Bar.DictOrderedBookings[Client][lvi.SubItems[1].ToString()]);
+                    parent.Bar.CancelBookings(parent.Bar.DictOrderedBookings[Client][lvi.SubItems[1].Text]);
+
+            FillClientsList();
+            UpdateSelectedBookings();
         }
         #endregion
 

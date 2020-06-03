@@ -42,10 +42,19 @@ namespace Merendero
         private void DeleteProduct()
         {
             if (LvwProducts.FocusedItem == null) return;
-            
-            int index = LvwProducts.FocusedItem.Index;
-            parent.Admin.DeleteProduct(ClsAccount.ListMenu[index]);
-            FillList();
+
+            DialogResult dr = MessageBox.Show("Eliminare il prodotto dal menu e tutte le prenotazioni associate?",
+                "Eliminazione prodotto dal menu",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Warning
+                );
+
+            if (dr == DialogResult.OK)
+            {
+                int index = LvwProducts.FocusedItem.Index;
+                parent.Admin.DeleteProduct(ClsAccount.ListMenu[index]);
+                FillList();
+            }
         }
         #endregion
 

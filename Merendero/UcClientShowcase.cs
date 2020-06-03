@@ -35,6 +35,9 @@ namespace Merendero
         public void FillList()
         {
             FlpnlProducts.Controls.Clear();
+            ListNewBookings.Clear();
+            ListTypeBookings.Clear();
+            DictProductsBooked.Clear();
 
             foreach (UcProduct p in ClsAccount.ListMenu)
             {
