@@ -33,6 +33,7 @@ namespace Merendero
         public void FillList()
         {
             LvwBookings.Items.Clear();
+            parent.Client.ListOwnBookings.Reverse();
             ListViewItem lvi;
 
             foreach(ClsBooking b in parent.Client.ListOwnBookings)
