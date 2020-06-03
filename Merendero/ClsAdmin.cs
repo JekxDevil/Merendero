@@ -97,11 +97,36 @@ namespace Merendero
             {
                 Program.conn.Open();
 
+                List<int> listId = new List<int>();
+                //get confirmed account bookings
+                Program.cmd.CommandText = "SELECT product FROM booking WHERE client_account = @client AND bar_account IS NOT NULL;";
+                Program.cmd.Parameters.Add("@client", SqlDbType.VarChar).Value = _account.Name;
+                SqlDataReader reader = Program.cmd.ExecuteReader();
+                Program.cmd.Parameters.Clear();
+
+                while (reader.Read())
+                    listId.Add((int)reader["product"]);
+
+                reader.Close();
+
+                //delete products of confirmed account bookings
+                Program.cmd.CommandText = "DELETE FROM product WHERE id = @id";
+                SqlParameter sqlpar_productId = Program.cmd.Parameters.Add("@id", SqlDbType.Int);
+
+                foreach (int product_id in listId)
+                {
+                    sqlpar_productId.Value = product_id;
+                    Program.cmd.ExecuteNonQuery();
+                }
+
+                Program.cmd.Parameters.Clear();
+
                 //delete account
                 Program.cmd.CommandText = "DELETE FROM account WHERE name = @name";
                 Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = _account.Name;
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
+
             }
             catch (SqlException sqlerror)
             {
