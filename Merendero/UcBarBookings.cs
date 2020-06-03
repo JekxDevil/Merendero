@@ -12,9 +12,12 @@ namespace Merendero
 {
     public partial class UcBarBookings : UserControl
     {
+        #region FIELDS
         private FrmMerendero parent;
         private string Client;
+        #endregion
 
+        #region CONSTRUCTOR
         public UcBarBookings(FrmMerendero _parent)
         {
             InitializeComponent();
@@ -23,8 +26,12 @@ namespace Merendero
             parent = _parent;
             Client = string.Empty;
         }
+        #endregion
 
         #region METHODS
+        /// <summary>
+        /// Procedure - fill listview with pending bookings
+        /// </summary>
         public void FillClientsList()
         {
             LvwBookingClients.Items.Clear();
@@ -33,6 +40,9 @@ namespace Merendero
                 LvwBookingClients.Items.Add(new ListViewItem(s));
         }
 
+        /// <summary>
+        /// Procedure - update listview with only pending bookings of client selected
+        /// </summary>
         private void UpdateSelectedBookings()
         {
             foreach (ListViewItem lvi in LvwSelectedBooking.Items)
@@ -40,6 +50,9 @@ namespace Merendero
                     LvwSelectedBooking.Items.Remove(lvi);
         }
 
+        /// <summary>
+        /// Procedure - update listview bookings related to selected client
+        /// </summary>
         private void SelectedBooking()
         {
             if (LvwBookingClients.FocusedItem == null) return;
@@ -61,6 +74,9 @@ namespace Merendero
             }
         }
 
+        /// <summary>
+        /// Procedure - confirm bookings and add to database
+        /// </summary>
         private void ConfirmBooking()
         {
             if (LvwBookingClients.FocusedItem == null) return;
@@ -76,6 +92,9 @@ namespace Merendero
             UpdateSelectedBookings();
         }
 
+        /// <summary>
+        /// Procedure - cancel bookings and delete them from database
+        /// </summary>
         private void CancelBooking()
         {
             if (LvwBookingClients.FocusedItem == null) return;

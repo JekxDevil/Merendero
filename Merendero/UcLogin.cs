@@ -13,11 +13,16 @@ namespace Merendero
 {
     public partial class UcLogin : UserControl
     {
+        #region CONSTS
         private const char HIDE = '*';
         private const char SHOW = '\0';
+        #endregion
 
+        #region FIELDS
         FrmMerendero parent;
+        #endregion
 
+        #region CONSTRUCTOR
         public UcLogin(FrmMerendero _parent)
         {
             InitializeComponent();
@@ -28,8 +33,12 @@ namespace Merendero
             TbxPassword.PasswordChar = HIDE;
             parent = _parent;
         }
+        #endregion
 
         #region METHODS
+        /// <summary>
+        /// Procedure - clear controls and reset to defaults and nulls, unsubscribe events
+        /// </summary>
         private void ClearSession()
         {
             if(parent.Admin != null)
@@ -58,6 +67,9 @@ namespace Merendero
             parent.LblAccount.Text = string.Empty;
         }
 
+        /// <summary>
+        /// Proceudure - manage login views to each differente account
+        /// </summary>
         private void LogIn()
         {
             if (string.IsNullOrWhiteSpace(TbxUsername.Text)) return;
@@ -141,11 +153,15 @@ namespace Merendero
                     return;
             }
 
+            //alway default
             parent.PnlPanel.Location = new Point(parent.PnlPanel.Location.X, parent.Btn1.Location.Y);
             TbxUsername.Text = TbxPassword.Text = String.Empty;
             parent.LblAccount.Text = user;
         }
 
+        /// <summary>
+        /// Procedure - show or cover the password according if button clicked or not
+        /// </summary>
         private void PasswordVisibility()
         {
             if ((bool)BtnHidePassword.Tag)

@@ -12,8 +12,11 @@ namespace Merendero
 {
     public partial class UcBarAddProducts : UserControl
     {
+        #region FIELDS
         private FrmMerendero parent;
+        #endregion
 
+        #region CONSTRUCTOR
         public UcBarAddProducts(FrmMerendero _parent)
         {
             InitializeComponent();
@@ -21,8 +24,12 @@ namespace Merendero
             Location = new Point(FrmMerendero.X, FrmMerendero.Y);
             parent = _parent;
         }
+        #endregion
 
         #region METHODS
+        /// <summary>
+        /// Procedure - fill listview with menu products
+        /// </summary>
         public void FillList()
         {
             LvwProducts.Items.Clear();
@@ -38,6 +45,9 @@ namespace Merendero
             }
         }
 
+        /// <summary>
+        /// Procedure - add products to the bar pantry
+        /// </summary>
         private void AddProducts()
         {
             if (LvwProducts.FocusedItem == null) return;
@@ -47,6 +57,9 @@ namespace Merendero
             FillList();
         }
 
+        /// <summary>
+        /// Procedure - update selected product label
+        /// </summary>
         private void SelectedProduct()
         {
             if (LvwProducts.FocusedItem == null) return;

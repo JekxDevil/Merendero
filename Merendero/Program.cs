@@ -9,6 +9,7 @@ namespace Merendero
 {
     static class Program
     {
+        //connection and command static here. Easy to use in the whole project
         public static SqlConnection conn = new SqlConnection(global::Merendero.Properties.Resources.DatabaseConnectionString);
         public static SqlCommand cmd = new SqlCommand() { Connection = conn };
 

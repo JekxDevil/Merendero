@@ -12,8 +12,11 @@ namespace Merendero
 {
     public partial class UcAdminDeleteProduct : UserControl
     {
+        #region FIELDS
         private FrmMerendero parent;
+        #endregion
 
+        #region CONSTRUCTORS
         public UcAdminDeleteProduct(FrmMerendero _parent)
         {
             InitializeComponent();
@@ -21,8 +24,12 @@ namespace Merendero
             Location = new Point(FrmMerendero.X, FrmMerendero.Y);
             parent = _parent;
         }
+        #endregion
 
         #region METHODS
+        /// <summary>
+        /// Procedure - fill listview menu with products
+        /// </summary>
         public void FillList()
         {
             LvwProducts.Items.Clear();
@@ -39,6 +46,9 @@ namespace Merendero
             }
         }
 
+        /// <summary>
+        /// Procedure - delete selected product from database
+        /// </summary>
         private void DeleteProduct()
         {
             if (LvwProducts.FocusedItem == null) return;

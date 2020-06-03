@@ -13,12 +13,15 @@ namespace Merendero
 {
     public partial class UcClientShowcase : UserControl
     {
+        #region FIELDS
         private FrmMerendero parent;
         private UcProduct SelectedProduct;
         private List<ClsBooking> ListNewBookings; 
         private List<ClsBooking> ListTypeBookings;
         private Dictionary<string, int> DictProductsBooked;
+        #endregion
 
+        #region CONSTRUCTOR
         public UcClientShowcase(FrmMerendero _parent)
         {
             InitializeComponent();
@@ -30,8 +33,12 @@ namespace Merendero
             parent = _parent;
             SelectedProduct = null;
         }
+        #endregion
 
         #region METHODS
+        /// <summary>
+        /// Procedure - update showcase with menu products
+        /// </summary>
         public void FillList()
         {
             FlpnlProducts.Controls.Clear();
@@ -59,6 +66,10 @@ namespace Merendero
             }
         }
 
+        /// <summary>
+        /// Procedure - handle amount of product selectable
+        /// </summary>
+        /// <param name="_product">product object</param>
         private void AmountHandler(UcProduct _product)
         {
             int amount = (int)_product.NudAmount.Value;
@@ -81,6 +92,10 @@ namespace Merendero
             DictProductsBooked[name] = amount;
         }
 
+        /// <summary>
+        /// Procedure - handle product cover show
+        /// </summary>
+        /// <param name="_product">product object</param>
         private void OneShowedHandler(UcProduct _product)
         {
             if (SelectedProduct != null && _product.Id != SelectedProduct.Id && SelectedProduct.Clicked)
@@ -92,6 +107,9 @@ namespace Merendero
             SelectedProduct = _product;
         }
 
+        /// <summary>
+        /// Procedure - confirm booking, show receipt and add bookings to database
+        /// </summary>
         private void ConfirmBookings()
         {
             if (ListTypeBookings.Count == 0) return;

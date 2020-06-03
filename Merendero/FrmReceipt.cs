@@ -12,11 +12,13 @@ namespace Merendero
 {
     public partial class FrmReceipt : Form
     {
+        #region CONSTRUCTOR
         public FrmReceipt(List<ClsBooking> _list, Dictionary<string, int> _dict)
         {
             InitializeComponent();
-            float _fTotalCost = 0f;
 
+            //fill listview receipt
+            float _fTotalCost = 0f;
             ListViewItem lvi;
             foreach(ClsBooking b in _list)
             {
@@ -31,14 +33,19 @@ namespace Merendero
 
             LblTotalCost.Text = "Prezzo Totale " + _fTotalCost.ToString("c2");
         }
+        #endregion
 
         #region METHODS
+        /// <summary>
+        /// Procedure - confirm bookings
+        /// </summary>
         private void Confirm()
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
+        //Procedure - cancel bookings
         private void Cancel()
         {
             this.DialogResult = DialogResult.Cancel;

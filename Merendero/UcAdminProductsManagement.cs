@@ -14,9 +14,12 @@ namespace Merendero
 {
     public partial class UcAdminProductsManagement : UserControl
     {
+        #region FIELDS
         private FrmMerendero parent;
         private DialogResult image_result;
+        #endregion
 
+        #region CONSTRUCTOR
         public UcAdminProductsManagement(FrmMerendero _parent)
         {
             InitializeComponent();
@@ -28,8 +31,12 @@ namespace Merendero
             BtnFile.Tag = false;        //check if image was submitted
             image_result = DialogResult.Cancel;
         }
+        #endregion
 
         #region METHODS
+        /// <summary>
+        /// Procedure - fill menu products to listview
+        /// </summary>
         public void FillList()
         {
             LvwProducts.Items.Clear();
@@ -54,6 +61,9 @@ namespace Merendero
                 CbxCategory.Items.Add(s);
         }
 
+        /// <summary>
+        /// Procedure - selecte an image from the user filesystem
+        /// </summary>
         private void SelectFile()
         {
             OpenFileDialog ofd = new OpenFileDialog() {
@@ -124,6 +134,9 @@ namespace Merendero
             BtnFile.Tag = false;
         }
 
+        /// <summary>
+        /// Procedure - edit product and update list
+        /// </summary>
         private void EditProduct()
         {
             if (LvwProducts.FocusedItem == null) return;
@@ -153,6 +166,9 @@ namespace Merendero
             ClearFields();
         }
 
+        /// <summary>
+        /// Procedure - compile fields with selected product data
+        /// </summary>
         private void CompileFields()
         {
             if (LvwProducts.FocusedItem == null) return;
@@ -167,6 +183,9 @@ namespace Merendero
             BtnAdd.Enabled = false;
         }
 
+        /// <summary>
+        /// Procedure - clear fields to default values
+        /// </summary>
         private void ClearFields()
         {
             LvwProducts.SelectedIndices.Clear();

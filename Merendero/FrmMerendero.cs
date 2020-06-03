@@ -34,9 +34,9 @@ namespace Merendero
         public UcBarBookings ucBarBookings;
         public UcClientShowcase ucClientShowcase;
         public UcClientBookings ucClientBookings;
-
         #endregion
 
+        #region CONSTRUCTOR
         public FrmMerendero()
         {
             InitializeComponent();
@@ -56,14 +56,19 @@ namespace Merendero
             this.Controls.Add(ucBarBookings);
             this.Controls.Add(ucClientShowcase);
             this.Controls.Add(ucClientBookings);
+            //initial settings
             BtnLogin.Height = PnlPanel.Height = BTNHEIGHT;
             BtnLogin.Width = BTNWIDTH;
             Btn1.Visible = Btn2.Visible = Btn3.Visible = false;
             LblAccount.Text = string.Empty;
             ucLogin.BringToFront();
         }
+        #endregion
 
         #region METHODS
+        /// <summary>
+        /// Procedure - shows login form when clicked
+        /// </summary>
         private void Login()
         {
             ucLogin.BringToFront();

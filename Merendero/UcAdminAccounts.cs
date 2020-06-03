@@ -12,8 +12,11 @@ namespace Merendero
 {
     public partial class UcAdminAccounts : UserControl
     {
+        #region FIELDS
         private FrmMerendero parent;
+        #endregion
 
+        #region CONSTRUCTOR
         public UcAdminAccounts(FrmMerendero _parent)
         {
             InitializeComponent();
@@ -23,6 +26,7 @@ namespace Merendero
             parent = _parent;
             CbxType.SelectedIndex = 0;
         }
+        #endregion
 
         #region METHODS
         /// <summary>
@@ -100,6 +104,9 @@ namespace Merendero
             }
         }
 
+        /// <summary>
+        /// Procedure - compile field with selected product
+        /// </summary>
         private void CompileField()
         {
             if (LvwAccounts.FocusedItem == null) return;
@@ -110,6 +117,9 @@ namespace Merendero
             CbxType.SelectedIndex = (int)account.Type;
         }
 
+        /// <summary>
+        /// Procedure - clear fields to default values
+        /// </summary>
         private void ClearFields()
         {
             TbxName.Text = string.Empty;
@@ -117,6 +127,9 @@ namespace Merendero
             CbxType.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Procedure - fill the combobox with account types
+        /// </summary>
         private void FillTypes()
         {
             foreach (string s in Enum.GetNames(typeof(ClsAccount.EnType)))

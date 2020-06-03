@@ -12,8 +12,11 @@ namespace Merendero
 {
     public partial class UcClientBookings : UserControl
     {
+        #region FIELDS
         private FrmMerendero parent;
+        #endregion
 
+        #region CONSTRUCTOR
         public UcClientBookings(FrmMerendero _parent)
         {
             InitializeComponent();
@@ -21,7 +24,12 @@ namespace Merendero
             Location = new Point(FrmMerendero.X, FrmMerendero.Y);
             parent = _parent;
         }
+        #endregion
 
+        #region METHODS
+        /// <summary>
+        /// Procedure - update listview with own client bookings
+        /// </summary>
         public void FillList()
         {
             LvwBookings.Items.Clear();
@@ -37,5 +45,6 @@ namespace Merendero
                 LvwBookings.Items.Add(lvi);
             }
         }
+        #endregion
     }
 }
