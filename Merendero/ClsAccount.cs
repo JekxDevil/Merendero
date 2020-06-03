@@ -11,8 +11,11 @@ namespace Merendero
 {
     public class ClsAccount
     {
+        #region ENUM
         public enum EnType { ADMIN, BAR, CLIENT }
+        #endregion
 
+        #region FIELDS
         public static List<UcProduct> ListProducts { get; private set; } = new List<UcProduct>();
         public static List<UcProduct> ListMenu { get; private set; } = new List<UcProduct>();
         public static Dictionary<string, int> DictAmounts { get; private set; } = new Dictionary<string, int>();
@@ -20,15 +23,24 @@ namespace Merendero
         public string Name { get; private set; }
         public string Password { get; private set; }
         public EnType Type { get; private set; }
+        #endregion
 
+        #region CONSTRUCTORS
         public ClsAccount(string _name, string _password, EnType _type)
         {
             Name = _name;
             Password = _password;
             Type = _type;
         }
+        #endregion
 
         #region METHODS
+        /// <summary>
+        /// Static Function - search the user account in database
+        /// </summary>
+        /// <param name="_user">user in string per copy</param>
+        /// <param name="_pass">password in string per copy</param>
+        /// <returns>type of account logged</returns>
         public static EnType? Login(string _user, string _pass)
         {
             EnType? type = null;
@@ -50,7 +62,7 @@ namespace Merendero
             }
             catch (SqlException esql)
             {
-                MessageBox.Show("Lettura Database fallita: " + esql.Message);
+                MessageBox.Show("Login fallito: " + esql.Message);
             }
             finally
             {
@@ -61,7 +73,7 @@ namespace Merendero
         }
 
         /// <summary>
-        /// Procedure - updates listproducts, listmenu and dictamounts in once
+        /// Static Procedure - updates listproducts, listmenu and dictamounts in once
         /// </summary>
         public static void GetProducts()
         {
@@ -87,7 +99,7 @@ namespace Merendero
                         (bool)reader["booked"]
                         ));
 
-                    //get DictAmount
+                    //get DictAmount for each product registered in menu
                     string name = (string)reader["name"];
                     DictAmounts[name] = DictAmounts.ContainsKey(name) ? DictAmounts[name] + 1 : 1;
                 }
@@ -95,7 +107,7 @@ namespace Merendero
                 reader.Close();
                 ListProducts = list;
 
-                //get ListMenu
+                //get ListMenu (single products)
                 ListMenu = ListProducts.GroupBy(x => x.Name).Select(x => x.First()).ToList();
             }
             catch (SqlException sqlerror)

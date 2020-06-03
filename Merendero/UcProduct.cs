@@ -38,6 +38,16 @@ namespace Merendero
         #endregion
 
         #region CONSTRUCTORS
+        /// <summary>
+        /// Contructor - used when retrieve product form database
+        /// </summary>
+        /// <param name="_id">id in int per copy</param>
+        /// <param name="_name">product name in string per copy</param>
+        /// <param name="_image">image name in string per copy</param>
+        /// <param name="_description">description in string per copy</param>
+        /// <param name="_cost">cost in float per copy</param>
+        /// <param name="_category">category in enum Category per copy</param>
+        /// <param name="_booked">booked state value in bool per copy</param>
         public UcProduct(int _id, string _name, string _image, string _description, float _cost, EnCategory _category, bool _booked)
         {
             InitializeComponent();
@@ -67,7 +77,7 @@ namespace Merendero
             this.RtbxDescription.Click += SwitchSide;
             this.LblCost.Click += SwitchSide;
 
-            //design choice side
+            //design choice side (cover product)
             this.LblDescription = new Label();
             this.NudAmount = new NumericUpDown();
             this.BtnOk = new Button();
@@ -106,6 +116,14 @@ namespace Merendero
             this.Controls.Add(this.LblDescription);
         }
 
+        /// <summary>
+        /// Constructor - used when creating object
+        /// </summary>
+        /// <param name="_name">product name in string per copy</param>
+        /// <param name="_image">image name in string per copy</param>
+        /// <param name="_description">description in string per copy</param>
+        /// <param name="_cost">cost in float per copy</param>
+        /// <param name="_category">category in enum Category per copy</param>
         public UcProduct(string _name, string _image, string _description, float _cost, EnCategory _category)
         {
             InitializeComponent();
@@ -127,6 +145,11 @@ namespace Merendero
         #endregion
 
         #region METHODS
+        /// <summary>
+        /// Function - retrieve its image from database
+        /// </summary>
+        /// <param name="_name">image name in string per copy</param>
+        /// <returns>image object</returns>
         private Image GetImage(string _name)
         {
             SqlConnection connection = new SqlConnection(global::Merendero.Properties.Resources.DatabaseConnectionString);
@@ -167,10 +190,17 @@ namespace Merendero
         #endregion
 
         #region EVENTS
+        /// <summary>
+        /// Event Handler - switch side and show cover when product user control clicked
+        /// </summary>
+        /// <param name="sender">sender object</param>
+        /// <param name="e">arguments eventargs</param>
         public void SwitchSide(object sender, EventArgs e)
         {
+            //update state
             Clicked = Clicked ? false : true;
 
+            //switch side
             if (Clicked)
             {
                 LblDescription.Visible = NudAmount.Visible = BtnOk.Visible = true;

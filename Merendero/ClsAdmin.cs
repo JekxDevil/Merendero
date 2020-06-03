@@ -12,15 +12,23 @@ namespace Merendero
 {
     public class ClsAdmin : ClsAccount
     {
+        #region FIELDS
         public List<ClsAccount> ListAccounts { get; private set; } = new List<ClsAccount>();
+        #endregion
 
+        #region CONSTRUCTORS
         public ClsAdmin(string _name, string _password) : base(_name, _password, ClsAccount.EnType.ADMIN)
         {
             ClsAccount.GetProducts();
             this.GetAccounts();
         }
+        #endregion
 
         #region METHODS
+        /// <summary>
+        /// Procedure - add account into database given its object
+        /// </summary>
+        /// <param name="_account">account object</param>
         public void AddAccount(ClsAccount _account)
         {
             try
@@ -48,6 +56,10 @@ namespace Merendero
             }
         }
 
+        /// <summary>
+        /// Procedure - edit account into database given its object
+        /// </summary>
+        /// <param name="_account">account object</param>
         public void EditAccount(ClsAccount _account)
         {
             try
@@ -75,14 +87,15 @@ namespace Merendero
             }
         }
 
+        /// <summary>
+        /// Procedure - delete account into database given its object
+        /// </summary>
+        /// <param name="_account">account object</param>
         public void DeleteAccount(ClsAccount _account)
         {
             try
             {
                 Program.conn.Open();
-
-                //delete related bookings? may cause problems if lefted
-
 
                 //delete product
                 Program.cmd.CommandText = "DELETE FROM account WHERE name = @name";
@@ -105,6 +118,9 @@ namespace Merendero
             }
         }
 
+        /// <summary>
+        /// Procedure - retrieve database account and put them on a list
+        /// </summary>
         public void GetAccounts()
         {
             List<ClsAccount> list = new List<ClsAccount>();
@@ -142,10 +158,9 @@ namespace Merendero
         }
 
         /// <summary>
-        /// Function - add the existence of a product
+        /// Procedure - add the existence of a product on database
         /// </summary>
-        /// <param name="_product">prototype product obj</param>
-        /// <returns>true if function works</returns>
+        /// <param name="_product">product object</param>
         public void AddProduct(UcProduct _product)
         {
             try
@@ -198,6 +213,10 @@ namespace Merendero
             }
         }
 
+        /// <summary>
+        /// Procedure - edit only the product attributes on database
+        /// </summary>
+        /// <param name="_product">product object</param>
         public void EditProduct(UcProduct _product)
         {
             try
@@ -232,6 +251,11 @@ namespace Merendero
             }
         }
 
+        /// <summary>
+        /// Procedure - edit the product attributes on database and its image, delete old image
+        /// </summary>
+        /// <param name="_product">product object</param>
+        /// <param name="_oldimage">old image path in string per copy</param>
         public void EditProduct(UcProduct _product, string _oldimage)
         {
             try
@@ -292,10 +316,9 @@ namespace Merendero
         }
 
         /// <summary>
-        /// Function - delete a product from existence
+        /// Procedure - delete a product from existence and menu
         /// </summary>
-        /// <param name="_product">product obj as example</param>
-        /// <returns>true if function works</returns>
+        /// <param name="_product">product object</param>
         public void DeleteProduct(UcProduct _product)
         {
             try

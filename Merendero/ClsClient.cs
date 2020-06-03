@@ -11,8 +11,10 @@ namespace Merendero
 {
     public class ClsClient : ClsAccount
     {
+        #region FIELDS
         public List<ClsBooking> ListOwnBookings { get; private set; }
         public Dictionary<string, int> DictUnbookableAmounts { get; private set; } = new Dictionary<string, int>();
+        #endregion
 
         #region CONSTRUCTOR
         public ClsClient(string _name, string _password) : base(_name, _password, ClsAccount.EnType.CLIENT)
@@ -25,6 +27,10 @@ namespace Merendero
         #endregion
 
         #region METHODS
+        /// <summary>
+        /// Procedure - insert a booking into the database
+        /// </summary>
+        /// <param name="_booking">booking object</param>
         public void Book(ClsBooking _booking)
         {
             try
@@ -60,6 +66,9 @@ namespace Merendero
             }
         }
 
+        /// <summary>
+        /// Procedure - get own bookings from database and update dictionary
+        /// </summary>
         public void GetBookings()
         {
             ListOwnBookings.Clear();
@@ -75,9 +84,11 @@ namespace Merendero
 
                 while (reader.Read())
                 {
+                    //if booked insert name of bar account, else keep empty
                     string bar = reader["bar_account"] == DBNull.Value ? string.Empty : (string)reader["bar_account"];
                     string client = (string)reader["client_account"];
 
+                    //if own booking, insert into list
                     if (client == this.Name)
                     {
                         ListOwnBookings.Add(new ClsBooking(
@@ -89,6 +100,7 @@ namespace Merendero
                             ));
                     }
 
+                    //keep track about booked products
                     UcProduct p = ClsAccount.ListProducts.Find(x => x.Id == (int)reader["product"]);
 
                     if (reader["bar_account"] != DBNull.Value || p.Booked)

@@ -14,10 +14,10 @@ namespace Merendero
     public class ClsBar : ClsAccount
     {
         #region FIELDS
-        public Dictionary<string, int> DictUnbookableAmounts { get; private set; } = new Dictionary<string, int>();
         public List<ClsBooking> ListBookings { get; private set; }
         public Dictionary<string, List<ClsBooking>> DictBookingsPerClient { get; private set; }
         public Dictionary<string, Dictionary<string, List<ClsBooking>>> DictOrderedBookings { get; private set; }
+        public Dictionary<string, int> DictUnbookableAmounts { get; private set; } = new Dictionary<string, int>();
         #endregion
 
         #region CONSTRUCTORS
@@ -33,6 +33,10 @@ namespace Merendero
         #endregion
 
         #region METHODS
+        /// <summary>
+        /// Procedure - sell products and update the current database with new bookings
+        /// </summary>
+        /// <param name="_listbookings">bookings list</param>
         public void Sell(List<ClsBooking> _listbookings)
         {
             try
@@ -66,7 +70,11 @@ namespace Merendero
                 this.GetBookings();
             }
         }
-        
+
+        /// <summary>
+        /// Procedure - cancel bookings in database
+        /// </summary>
+        /// <param name="_listbookings">bookings list</param>
         public void CancelBookings(List<ClsBooking> _listbookings)
         {
             try
@@ -107,6 +115,11 @@ namespace Merendero
             }
         }
 
+        /// <summary>
+        /// Procedure - fill pantry with selected product in database
+        /// </summary>
+        /// <param name="_product">product object</param>
+        /// <param name="_amount">amount in int per copy</param>
         public void FillPantry(UcProduct _product, int _amount)
         {
             try
@@ -145,6 +158,9 @@ namespace Merendero
             }
         }
 
+        /// <summary>
+        /// Procedure - update dictionary of already booked products
+        /// </summary>
         public void UpdateDictUnbookableAmounts()
         {
             foreach (UcProduct p in ClsAccount.ListProducts)
@@ -158,6 +174,9 @@ namespace Merendero
 
         }
 
+        /// <summary>
+        /// Procedure - retrieve bookings from database and put them on list, update dictionaries
+        /// </summary>
         private void GetBookings()
         {
             ListBookings.Clear();

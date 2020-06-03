@@ -72,7 +72,6 @@ namespace Merendero
                     p.Id
                     ));
 
-
             ListTypeBookings.Add(new ClsBooking(
                 parent.Client.Name,
                 _product.Id
