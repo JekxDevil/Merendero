@@ -28,7 +28,7 @@ namespace Merendero
         public string Description { get; private set; }
         public float Cost { get; private set; }
         public EnCategory Category { get; private set; }
-        public bool Booked { get; private set; }
+        public int? Booking { get; private set; }
 
         //design management
         public bool Clicked { get; set; }
@@ -48,7 +48,7 @@ namespace Merendero
         /// <param name="_cost">cost in float per copy</param>
         /// <param name="_category">category in enum Category per copy</param>
         /// <param name="_booked">booked state value in bool per copy</param>
-        public UcProduct(int _id, string _name, string _image, string _description, float _cost, EnCategory _category, bool _booked)
+        public UcProduct(int _id, string _name, string _image, string _description, float _cost, EnCategory _category, int? _booking)
         {
             InitializeComponent();
             Id = _id;
@@ -58,7 +58,7 @@ namespace Merendero
             Description = _description;
             Cost = _cost;
             Category = _category;
-            Booked = _booked;
+            Booking = _booking;
 
             //design
             Width = WIDTH;

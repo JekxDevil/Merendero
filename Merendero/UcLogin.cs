@@ -224,14 +224,17 @@ namespace Merendero
         private void OpenClientShowcase(object sender, EventArgs e)
         {
             parent.ucClientShowcase.BringToFront();
-            parent.Client.GetBookings();
             parent.PnlPanel.Location = new Point(parent.PnlPanel.Location.X, parent.Btn1.Location.Y);
+            ClsAccount.GetProducts();
+            parent.Client.GetBookings();
+            parent.ucClientShowcase.FillList();
         }
 
         private void OpenClientBookings(object sender, EventArgs e)
         {
             parent.ucClientBookings.BringToFront();
             parent.PnlPanel.Location = new Point(parent.PnlPanel.Location.X, parent.Btn2.Location.Y);
+            ClsAccount.GetProducts();
             parent.Client.GetBookings();
             parent.ucClientBookings.FillList();
         }

@@ -12,8 +12,9 @@ namespace Merendero
     public class ClsClient : ClsAccount
     {
         #region FIELDS
+        //list bookings owned by the client
         public List<ClsBooking> ListOwnBookings { get; private set; }
-        public Dictionary<string, int> DictUnbookableAmounts { get; private set; } = new Dictionary<string, int>();
+        public Dictionary<string, int> DictUnbookableAmounts { get; private set; }
         #endregion
 
         #region CONSTRUCTOR
@@ -40,13 +41,25 @@ namespace Merendero
                 Program.cmd.CommandText = "INSERT INTO booking (client_account, product, timestamp) " +
                     "VALUES (@client_account, @product, @timestamp);";
                 Program.cmd.Parameters.Add("@client_account", SqlDbType.VarChar).Value = _booking.Client;
-                Program.cmd.Parameters.Add("@product", SqlDbType.VarChar).Value = _booking.Product;
+                Program.cmd.Parameters.Add("@product", SqlDbType.Int).Value = _booking.Product;
                 Program.cmd.Parameters.Add("@timestamp", SqlDbType.VarChar).Value = _booking.Timestamp;
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
 
-                Program.cmd.CommandText = "UPDATE product SET booked = 'true' WHERE id = @id;";
+                Program.cmd.CommandText = "SELECT id FROM booking " +
+                    "WHERE client_account = @client AND product = @product AND timestamp = @timestamp;";
+                Program.cmd.Parameters.Add("@client", SqlDbType.VarChar).Value = _booking.Client;
+                Program.cmd.Parameters.Add("@product", SqlDbType.Int).Value = _booking.Product;
+                Program.cmd.Parameters.Add("@timestamp", SqlDbType.VarChar).Value = _booking.Timestamp;
+                SqlDataReader reader = Program.cmd.ExecuteReader();
+                reader.Read();
+                int id_booking = (int)reader["id"];
+                Program.cmd.Parameters.Clear();
+                reader.Close();
+
+                Program.cmd.CommandText = "UPDATE product SET booking = @id_booking WHERE id = @id;";
                 Program.cmd.Parameters.Add("@id", SqlDbType.Int).Value = _booking.Product;
+                Program.cmd.Parameters.Add("@id_booking", SqlDbType.Int).Value = id_booking;
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
 
@@ -103,7 +116,7 @@ namespace Merendero
                     //keep track about booked products
                     UcProduct p = ClsAccount.ListProducts.Find(x => x.Id == (int)reader["product"]);
 
-                    if (reader["bar_account"] != DBNull.Value || p.Booked)
+                    if (reader["bar_account"] != DBNull.Value || p.Booking != null)
                     {
                         string product_name = p.Name;
 

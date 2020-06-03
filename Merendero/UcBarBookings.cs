@@ -35,6 +35,7 @@ namespace Merendero
         public void FillClientsList()
         {
             LvwBookingClients.Items.Clear();
+            LvwSelectedBooking.Items.Clear();
 
             foreach (string s in parent.Bar.DictBookingsPerClient.Keys)
                 LvwBookingClients.Items.Add(new ListViewItem(s));

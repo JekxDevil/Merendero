@@ -97,13 +97,11 @@ namespace Merendero
             {
                 Program.conn.Open();
 
-                //delete product
+                //delete account
                 Program.cmd.CommandText = "DELETE FROM account WHERE name = @name";
                 Program.cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = _account.Name;
                 Program.cmd.ExecuteNonQuery();
                 Program.cmd.Parameters.Clear();
-
-                //delete pending bookings
             }
             catch (SqlException sqlerror)
             {

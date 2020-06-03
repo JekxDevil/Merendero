@@ -14,21 +14,25 @@ namespace Merendero
     public class ClsBar : ClsAccount
     {
         #region FIELDS
-        public List<ClsBooking> ListBookings { get; private set; }
+        //list total pending bookings
+        public List<ClsBooking> ListPendingBookings { get; private set; }
+        //dictionary of bookings ordered per client
         public Dictionary<string, List<ClsBooking>> DictBookingsPerClient { get; private set; }
+        //dictionary of bookings ordered per client, then per product
         public Dictionary<string, Dictionary<string, List<ClsBooking>>> DictOrderedBookings { get; private set; }
-        public Dictionary<string, int> DictUnbookableAmounts { get; private set; } = new Dictionary<string, int>();
+        //dictionary of booked products amount
+        public Dictionary<string, int> DictSelledAmounts { get; private set; }
         #endregion
 
         #region CONSTRUCTORS
         public ClsBar(string _name, string _password) : base(_name, _password, ClsAccount.EnType.BAR)
         {
-            ListBookings = new List<ClsBooking>();
+            ListPendingBookings = new List<ClsBooking>();
             DictBookingsPerClient = new Dictionary<string, List<ClsBooking>>();
             DictOrderedBookings = new Dictionary<string, Dictionary<string, List<ClsBooking>>>();
+            DictSelledAmounts = new Dictionary<string, int>();
             ClsAccount.GetProducts();
             this.GetBookings();
-            this.UpdateDictUnbookableAmounts();
         }
         #endregion
 
@@ -87,14 +91,6 @@ namespace Merendero
                 foreach (ClsBooking b in _listbookings)
                 {
                     sqlpar_id.Value = b.Id;
-                    Program.cmd.ExecuteNonQuery();
-                }
-                
-                Program.cmd.CommandText = "DELETE FROM product WHERE id = @id;";
-                
-                foreach(ClsBooking b in _listbookings)
-                {
-                    sqlpar_id.Value = b.Product;
                     Program.cmd.ExecuteNonQuery();
                 }
 
@@ -159,19 +155,44 @@ namespace Merendero
         }
 
         /// <summary>
-        /// Procedure - update dictionary of already booked products
+        /// Procedure - update dictionary of already selled products
         /// </summary>
-        public void UpdateDictUnbookableAmounts()
+        public void UpdateDictSelledAmounts()
         {
-            foreach (UcProduct p in ClsAccount.ListProducts)
+            DictSelledAmounts.Clear();
+
+            try
             {
-                if (!DictUnbookableAmounts.ContainsKey(p.Name))
-                    DictUnbookableAmounts[p.Name] = 0;
+                Program.conn.Open();
+                Program.cmd.CommandText = "SELECT product FROM booking " +
+                    "WHERE bar_account IS NOT NULL;";
+                SqlDataReader reader = Program.cmd.ExecuteReader();
 
-                if (p.Booked)
-                    DictUnbookableAmounts[p.Name]++;
+                while (reader.Read())
+                {
+                    int product_id = (int)reader["product"];
+                    string product_name = (ClsAccount.ListProducts.Find(x => x.Id == product_id)).Name;
+
+                    if (!DictSelledAmounts.ContainsKey(product_name))
+                        DictSelledAmounts[product_name] = 0;
+
+                    DictSelledAmounts[product_name]++;
+                }
+
+                reader.Close();
             }
-
+            catch (SqlException sqlerror)
+            {
+                MessageBox.Show("Errore con la reperibilita' delle prenotazioni gia' confermate -> " + sqlerror.Message,
+                    "Errore prenotazioni Database",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+            }
+            finally
+            {
+                Program.conn.Close();
+            }
         }
 
         /// <summary>
@@ -179,7 +200,7 @@ namespace Merendero
         /// </summary>
         private void GetBookings()
         {
-            ListBookings.Clear();
+            ListPendingBookings.Clear();
             DictBookingsPerClient.Clear();
             DictOrderedBookings.Clear();
 
@@ -195,7 +216,7 @@ namespace Merendero
                 {
                     string bar = reader["bar_account"] == DBNull.Value ? string.Empty : (string)reader["bar_account"];
 
-                    ListBookings.Add(new ClsBooking(
+                    ListPendingBookings.Add(new ClsBooking(
                         (int)reader["id"],
                         bar,
                         (string)reader["client_account"],
@@ -217,13 +238,13 @@ namespace Merendero
                     }
 
                     //add his bookings
-                    DictBookingsPerClient[client].Add(ListBookings.Last());
+                    DictBookingsPerClient[client].Add(ListPendingBookings.Last());
 
                     //if client bookings haven't this product list name registered, create
                     if (!DictOrderedBookings[client].ContainsKey(product_name))
                         DictOrderedBookings[client][product_name] = new List<ClsBooking>();
 
-                    DictOrderedBookings[client][product_name].Add(ListBookings.Last());
+                    DictOrderedBookings[client][product_name].Add(ListPendingBookings.Last());
                 }
 
                 reader.Close();
@@ -239,6 +260,7 @@ namespace Merendero
             finally
             {
                 Program.conn.Close();
+                UpdateDictSelledAmounts();
             }
         }        
         #endregion

@@ -15,10 +15,15 @@ namespace Merendero
     {
         #region FIELDS
         private FrmMerendero parent;
-        private UcProduct SelectedProduct;
+        //list with new bookings pending to be booked assigned to the client
         private List<ClsBooking> ListNewBookings; 
+        //list with products menu which are the same name of booked onces
         private List<ClsBooking> ListTypeBookings;
+        //dictionary containing amounts booked per product name (menu)
         private Dictionary<string, int> DictProductsBooked;
+
+        //temps
+        private UcProduct SelectedProduct;
         #endregion
 
         #region CONSTRUCTOR
@@ -45,6 +50,8 @@ namespace Merendero
             ListNewBookings.Clear();
             ListTypeBookings.Clear();
             DictProductsBooked.Clear();
+            ClsAccount.GetProducts();
+            parent.Client.GetBookings();
 
             foreach (UcProduct p in ClsAccount.ListMenu)
             {
@@ -54,15 +61,43 @@ namespace Merendero
                     p.NudAmount.Maximum -= parent.Client.DictUnbookableAmounts[p.Name];
 
                 if (p.NudAmount.Maximum <= 0)
+                {
+                    p.BtnOk.Enabled = false;
                     p.LblCost.Text = "FINITO";
 
-                p.Click += OneProductShowed_Click;
-                p.LblName.Click += OneProductShowed_Click;
-                p.PbxImage.Click += OneProductShowed_Click;
-                p.RtbxDescription.Click += OneProductShowed_Click;
-                p.LblCost.Click += OneProductShowed_Click;
-                p.BtnOk.Click += Amount_Click;
+                    p.Click -= p.SwitchSide;
+                    p.LblName.Click -= p.SwitchSide;
+                    p.PbxImage.Click -= p.SwitchSide;
+                    p.RtbxDescription.Click -= p.SwitchSide;
+                    p.LblCost.Click -= p.SwitchSide;
+                }
+                else
+                {
+                    p.Click += OneProductShowed_Click;
+                    p.LblName.Click += OneProductShowed_Click;
+                    p.PbxImage.Click += OneProductShowed_Click;
+                    p.RtbxDescription.Click += OneProductShowed_Click;
+                    p.LblCost.Click += OneProductShowed_Click;
+                    p.BtnOk.Click += Amount_Click;
+                }
+
                 FlpnlProducts.Controls.Add(p);
+            }
+        }
+
+        /// <summary>
+        /// Procedure - clear product events left in controls
+        /// </summary>
+        public void ClearProductEvents()
+        {
+            foreach (UcProduct p in ClsAccount.ListMenu)
+            {
+                p.Click -= OneProductShowed_Click;
+                p.LblName.Click -= OneProductShowed_Click;
+                p.PbxImage.Click -= OneProductShowed_Click;
+                p.RtbxDescription.Click -= OneProductShowed_Click;
+                p.LblCost.Click -= OneProductShowed_Click;
+                p.BtnOk.Click -= Amount_Click;
             }
         }
 
@@ -75,7 +110,7 @@ namespace Merendero
             int amount = (int)_product.NudAmount.Value;
             _product.NudAmount.Maximum = _product.NudAmount.Maximum - amount;
             SelectedProduct.SwitchSide(SelectedProduct, EventArgs.Empty);
-            List<UcProduct> list = ClsAccount.ListProducts.FindAll(x => x.Name == _product.Name && !x.Booked).GetRange(0, amount);
+            List<UcProduct> list = ClsAccount.ListProducts.FindAll(x => x.Name == _product.Name && x.Booking == null).GetRange(0, amount);
 
             foreach (UcProduct p in list)
                 ListNewBookings.Add(new ClsBooking(
@@ -118,8 +153,13 @@ namespace Merendero
             DialogResult dr = frmReceipt.ShowDialog();
 
             if (dr == DialogResult.OK)
+            {
                 foreach (ClsBooking b in ListNewBookings)
                     parent.Client.Book(b);
+            }
+
+            ClearProductEvents();
+            FillList();
         }
         #endregion
 

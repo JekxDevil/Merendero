@@ -16,8 +16,11 @@ namespace Merendero
         #endregion
 
         #region FIELDS
+        //total products list (even booked but not selled maybe)
         public static List<UcProduct> ListProducts { get; private set; } = new List<UcProduct>();
+        //one object product per type (menu)
         public static List<UcProduct> ListMenu { get; private set; } = new List<UcProduct>();
+        //dictionary of total product amounts (even booked)
         public static Dictionary<string, int> DictAmounts { get; private set; } = new Dictionary<string, int>();
 
         public string Name { get; private set; }
@@ -84,11 +87,17 @@ namespace Merendero
             {
                 Program.conn.Open();
                 Program.cmd.Parameters.Clear();
-                Program.cmd.CommandText = "SELECT id, name, image, description, cost, category, booked FROM product";
+                Program.cmd.CommandText = "SELECT id, name, image, description, cost, category, booking FROM product";
                 SqlDataReader reader = Program.cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
+                    int? booking;
+                    if (reader["booking"] == DBNull.Value)
+                        booking = null;
+                    else
+                        booking = (int)reader["booking"];
+
                     list.Add(new UcProduct(
                         (int)reader["id"],
                         (string)reader["name"],
@@ -96,10 +105,10 @@ namespace Merendero
                         (string)reader["description"],
                         Convert.ToSingle(reader["cost"]),
                         (UcProduct.EnCategory)(int)reader["category"],
-                        (bool)reader["booked"]
+                        booking
                         ));
 
-                    //get DictAmount for each product registered in menu
+                    //get DictAmount for each product registered
                     string name = (string)reader["name"];
                     DictAmounts[name] = DictAmounts.ContainsKey(name) ? DictAmounts[name] + 1 : 1;
                 }

@@ -40,7 +40,14 @@ namespace Merendero
                 lvi = new ListViewItem(p.Name);
                 lvi.SubItems.Add(p.Cost.ToString("c2"));
                 lvi.SubItems.Add(p.Category.ToString());
-                lvi.SubItems.Add((ClsAccount.DictAmounts[p.Name] - parent.Bar.DictUnbookableAmounts[p.Name]).ToString());
+
+                string amount;
+                if (parent.Bar.DictSelledAmounts.ContainsKey(p.Name))
+                    amount = (ClsAccount.DictAmounts[p.Name] - parent.Bar.DictSelledAmounts[p.Name]).ToString();
+                else
+                    amount = ClsAccount.DictAmounts[p.Name].ToString();
+                
+                lvi.SubItems.Add(amount);
                 LvwProducts.Items.Add(lvi);
             }
         }
